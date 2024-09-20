@@ -10,14 +10,17 @@ Vector3D::Vector3D(float x, float y, float z)
 
 Vector3D::Vector3D(const Vector3D& other)
 {
-	this->x = x;
-	this->y = y;
-	this->z = z;
+	this->x = other.x;
+	this->y = other.y;
+	this->z = other.z;
 }
 
 void Vector3D::Normalize()
 {
-	//Cálculo de la normalización de vectores. Requiere utilizar Module()
+	float mod = Module();
+	x = x / mod;
+	y = y / mod;
+	z = z / mod;
 }
 
 float Vector3D::Module()
@@ -32,7 +35,17 @@ float Vector3D::DotProduct(const Vector3D other)
 
 Vector3D Vector3D::CrossProduct(const Vector3D other) {
 	//Cálculo del producto vectorial
-	return other;
+	float resx = y * other.z - z * other.y;
+	float resy = x * other.z - z * other.x;
+	float resz = x * other.y - x * other.y;
+	return Vector3D(resx, resy, resz);
+}
+
+Vector3D Vector3D::GetNormalized()
+{
+	Vector3D v = *this;
+	v.Normalize();
+	return v;
 }
 
 void Vector3D::Scale(float n)
@@ -49,7 +62,7 @@ Vector3D Vector3D::operator+(const Vector3D other)
 
 Vector3D Vector3D::operator-(const Vector3D other)
 {
-	return Vector3D(x * other.x, y * other.y, z * other.z);
+	return Vector3D(x - other.x, y - other.y, z - other.z);
 }
 
 Vector3D Vector3D::operator=(const Vector3D other)

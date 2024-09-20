@@ -66,11 +66,16 @@ void initPhysics(bool interactive)
 	
 	//Instanciacion de las entidades en escena
 	PxShape* sphere = CreateShape(PxSphereGeometry(1));
-	PxTransform* transformC = new PxTransform(PxVec3(0,0,0));
+	Vector3D vectorX = Vector3D(5, 0, 0);
+	Vector3D vectorY = Vector3D(0, 5, 0);
+	Vector3D vectorZ = Vector3D(0, 0, 5);
+	Vector3D vectorC = Vector3D(0, 0, 0);
+
+	PxTransform* transformC = new PxTransform(PxVec3(vectorC.getX(), vectorC.getY(), vectorC.getZ()));
 	//Valores del vector puestos directamente de forma provisional hasta que haga mi vector3
-	PxTransform* transformX = new PxTransform(PxVec3(5, 0, 0));
-	PxTransform* transformY = new PxTransform(PxVec3(0, 5, 0));
-	PxTransform* transformZ = new PxTransform(PxVec3(0, 0, 5));
+	PxTransform* transformX = new PxTransform(PxVec3(vectorX.getX(), vectorX.getY(), vectorX.getZ()));
+	PxTransform* transformY = new PxTransform(PxVec3(vectorY.getX(), vectorY.getY(), vectorY.getZ()));
+	PxTransform* transformZ = new PxTransform(PxVec3(vectorZ.getX(), vectorZ.getY(), vectorZ.getZ()));
 
 	PxVec4 colorW(1, 1, 1, 1);
 	PxVec4 colorR = PxVec4(1, 0, 0,1);
