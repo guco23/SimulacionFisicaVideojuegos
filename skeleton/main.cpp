@@ -10,6 +10,8 @@
 
 #include <iostream>
 
+#include "Vector3D.h"
+
 std::string display_text = "This is a test";
 
 
