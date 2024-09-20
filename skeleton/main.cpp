@@ -30,6 +30,13 @@ PxDefaultCpuDispatcher*	gDispatcher = NULL;
 PxScene*				gScene      = NULL;
 ContactReportCallback gContactReportCallback;
 
+RenderItem* esferaX;
+RenderItem* esferaY;
+RenderItem* esferaZ;
+RenderItem* esferaC;
+
+
+
 
 // Initialize physics engine
 void initPhysics(bool interactive)
@@ -54,7 +61,27 @@ void initPhysics(bool interactive)
 	sceneDesc.filterShader = contactReportFilterShader;
 	sceneDesc.simulationEventCallback = &gContactReportCallback;
 	gScene = gPhysics->createScene(sceneDesc);
-	}
+	
+	//Instanciacion de las entidades en escena
+	PxShape* sphere = CreateShape(PxSphereGeometry(1));
+	PxTransform* transformC = new PxTransform(PxVec3(0,0,0));
+	//Valores del vector puestos directamente de forma provisional hasta que haga mi vector3
+	PxTransform* transformX = new PxTransform(PxVec3(5, 0, 0));
+	PxTransform* transformY = new PxTransform(PxVec3(0, 5, 0));
+	PxTransform* transformZ = new PxTransform(PxVec3(0, 0, 5));
+
+	PxVec4 colorW(1, 1, 1, 1);
+	PxVec4 colorR = PxVec4(1, 0, 0,1);
+	PxVec4 colorG = PxVec4(0, 1, 0, 1);
+	PxVec4 colorB = PxVec4(0, 0, 1, 1);
+
+
+	esferaC = new RenderItem(sphere, transformC, colorW);
+	esferaX = new RenderItem(sphere, transformX, colorR);
+	esferaY = new RenderItem(sphere, transformY, colorG);
+	esferaZ = new RenderItem(sphere, transformZ, colorB);
+
+}
 
 
 // Function to configure what happens in each step of physics
@@ -75,6 +102,11 @@ void cleanupPhysics(bool interactive)
 	PX_UNUSED(interactive);
 
 	// Rigid Body ++++++++++++++++++++++++++++++++++++++++++
+	DeregisterRenderItem(esferaC);
+	DeregisterRenderItem(esferaX);
+	DeregisterRenderItem(esferaY);
+	DeregisterRenderItem(esferaZ);
+
 	gScene->release();
 	gDispatcher->release();
 	// -----------------------------------------------------
