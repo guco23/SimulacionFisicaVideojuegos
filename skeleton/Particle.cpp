@@ -11,6 +11,7 @@ Particle::Particle(Vector3D pos, Vector3D vel)
 
 Particle::~Particle()
 {
+	DeregisterRenderItem(renderItem);
 	delete renderItem;
 }
 

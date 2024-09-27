@@ -38,6 +38,8 @@ RenderItem* esferaY;
 RenderItem* esferaZ;
 RenderItem* esferaC;
 
+Particle* part;
+
 
 
 
@@ -91,7 +93,8 @@ void initPhysics(bool interactive)
 
 
 	//Practica 1
-	Particle part = Particle(Vector3D(1,1,1), Vector3D(0, 0, 1));
+	part = new Particle(Vector3D(4,1,1), Vector3D(0, 0, 0));
+
 }
 
 
