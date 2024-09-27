@@ -17,4 +17,5 @@ Particle::~Particle()
 
 void Particle::integrate(double t)
 {
+	pose.p = pose.p + physx::PxVec3(0, 0, t);
 }

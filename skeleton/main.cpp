@@ -105,6 +105,8 @@ void stepPhysics(bool interactive, double t)
 {
 	PX_UNUSED(interactive);
 
+	part->integrate(-0.11);
+
 	gScene->simulate(t);
 	gScene->fetchResults(true);
 }
