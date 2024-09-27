@@ -11,6 +11,7 @@
 #include <iostream>
 
 #include "Vector3D.h"
+#include "Particle.h"
 
 std::string display_text = "This is a test";
 
@@ -88,6 +89,9 @@ void initPhysics(bool interactive)
 	esferaY = new RenderItem(sphere, transformY, colorG);
 	esferaZ = new RenderItem(sphere, transformZ, colorB);
 
+
+	//Practica 1
+	Particle part = Particle(Vector3D(1,1,1), Vector3D(0, 0, 1));
 }
 
 

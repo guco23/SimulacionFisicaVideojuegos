@@ -8,12 +8,10 @@ Vector3D::Vector3D(float x, float y, float z)
 	this->z = z;
 }
 
-Vector3D::Vector3D(const Vector3D& other)
+Vector3D::Vector3D()
 {
-	this->x = other.x;
-	this->y = other.y;
-	this->z = other.z;
 }
+
 
 void Vector3D::Normalize()
 {
