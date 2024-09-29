@@ -13,6 +13,4 @@ private:
 	Vector3D vel;
 	physx::PxTransform pose;
 	RenderItem* renderItem;
-
 };
-

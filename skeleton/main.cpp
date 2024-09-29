@@ -93,8 +93,7 @@ void initPhysics(bool interactive)
 
 
 	//Practica 1
-	part = new Particle(Vector3D(4,1,1), Vector3D(0, 0, 0));
-
+	part = new Particle(Vector3D(4,1,1), Vector3D(0, -1, 0));
 }
 
 
