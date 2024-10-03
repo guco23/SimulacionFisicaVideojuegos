@@ -12,6 +12,7 @@
 
 #include "Vector3D.h"
 #include "Particle.h"
+#include "ParticleAcc.h"
 
 std::string display_text = "This is a test";
 
@@ -38,7 +39,7 @@ RenderItem* esferaY;
 RenderItem* esferaZ;
 RenderItem* esferaC;
 
-Particle* part;
+ParticleAcc* part;
 
 
 
@@ -93,7 +94,7 @@ void initPhysics(bool interactive)
 
 
 	//Practica 1
-	part = new Particle(Vector3D(4,1,1), Vector3D(0, -1, 0));
+	part = new ParticleAcc(Vector3D(4,1,1), Vector3D(0, -1, 0), 1.01);
 }
 
 
