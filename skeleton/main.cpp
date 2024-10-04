@@ -94,7 +94,7 @@ void initPhysics(bool interactive)
 
 
 	//Practica 1
-	part = new ParticleAcc(Vector3D(4,1,1), Vector3D(0, -1, 0), 1.01);
+	part = new ParticleAcc(Vector3D(4,1,1), Vector3D(0, -1, 0), 0.998, 0.001);
 }
 
 

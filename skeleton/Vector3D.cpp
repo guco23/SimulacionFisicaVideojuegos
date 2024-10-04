@@ -63,6 +63,11 @@ Vector3D Vector3D::operator-(const Vector3D other)
 	return Vector3D(x - other.x, y - other.y, z - other.z);
 }
 
+Vector3D Vector3D::operator=(const Vector3D other)
+{
+	return Vector3D();
+}
+
 Vector3D Vector3D::operator*(const Vector3D other)
 {
 	//Cálculo del producto vectorial
