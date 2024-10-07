@@ -10,17 +10,17 @@ public:
 	Vector3D();
 	void Normalize();
 	float Module();
-	float DotProduct(const Vector3D other);
+	float DotProduct(const Vector3D& other);
 	void Scale(float n);
 
-	Vector3D CrossProduct(const Vector3D other);
+	Vector3D CrossProduct(const Vector3D& other);
 	Vector3D GetNormalized();
 
-	Vector3D operator+(const Vector3D other);
-	Vector3D operator-(const Vector3D other);
-	Vector3D operator=(const Vector3D other);
-	Vector3D operator*(const float other);
-	Vector3D operator*(const Vector3D other);
+	Vector3D& operator+(const Vector3D& other);
+	Vector3D& operator-(const Vector3D& other);
+	Vector3D& operator=(const Vector3D& other);
+	Vector3D& operator*(const float& other);
+	Vector3D& operator*(const Vector3D& other);
 
 	float getX();
 	float getY();

@@ -4,8 +4,8 @@
 class ParticleAcc : Particle
 {
 public:
-	ParticleAcc(Vector3D pos, Vector3D vel, float acc, float damp);
+	ParticleAcc(Vector3D pos, Vector3D vel, Vector3D acc, float damp);
 	void integrate(double t) override;
 private:
-	float acc;
+	Vector3D acc;
 };

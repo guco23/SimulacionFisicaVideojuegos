@@ -94,7 +94,7 @@ void initPhysics(bool interactive)
 
 
 	//Practica 1
-	part = new ParticleAcc(Vector3D(4,1,1), Vector3D(0, -1, 0), 0.998, 0.001);
+	part = new ParticleAcc(Vector3D(4,1,1), Vector3D(0, 4, 0), Vector3D(0, -6, 0), 0.999);
 }
 
 
@@ -105,7 +105,7 @@ void stepPhysics(bool interactive, double t)
 {
 	PX_UNUSED(interactive);
 
-	part->integrate(-0.11);
+	part->integrate(t);
 
 	gScene->simulate(t);
 	gScene->fetchResults(true);

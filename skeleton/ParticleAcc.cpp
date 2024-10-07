@@ -1,8 +1,8 @@
 #include "ParticleAcc.h"
 
-ParticleAcc::ParticleAcc(Vector3D pos, Vector3D vel, float acc, float damp) : Particle(pos, vel, damp), acc(acc) {}
+ParticleAcc::ParticleAcc(Vector3D pos, Vector3D vel, Vector3D acc, float damp) : Particle(pos, vel, damp), acc(acc) {}
 
 void ParticleAcc::integrate(double t) {
-	vel.Scale(acc);
+	vel = vel + acc * t;
 	Particle::integrate(t);
 }
