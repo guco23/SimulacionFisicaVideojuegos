@@ -13,6 +13,7 @@
 #include "Vector3D.h"
 #include "Particle.h"
 #include "ParticleAcc.h"
+#include "Proyectil.h"
 
 std::string display_text = "This is a test";
 
@@ -39,10 +40,12 @@ RenderItem* esferaY;
 RenderItem* esferaZ;
 RenderItem* esferaC;
 
-ParticleAcc* part;
+std::vector<Particle*> parts;
 
 
-
+void GeneratePart() {
+	parts.push_back(new Proyectil(Vector3D(-90, 0, 0), Vector3D(80, 60, 0), Vector3D(0, 0, 0), 0.1, 0.999));
+}
 
 // Initialize physics engine
 void initPhysics(bool interactive)
@@ -86,15 +89,12 @@ void initPhysics(bool interactive)
 	PxVec4 colorG = PxVec4(0, 1, 0, 1);
 	PxVec4 colorB = PxVec4(0, 0, 1, 1);
 
-
 	esferaC = new RenderItem(sphere, transformC, colorW);
 	esferaX = new RenderItem(sphere, transformX, colorR);
 	esferaY = new RenderItem(sphere, transformY, colorG);
 	esferaZ = new RenderItem(sphere, transformZ, colorB);
 
-
-	//Practica 1
-	part = new ParticleAcc(Vector3D(4,1,1), Vector3D(0, 4, 0), Vector3D(0, -6, 0), 0.999);
+	parts = std::vector<Particle*>();
 }
 
 
@@ -105,7 +105,8 @@ void stepPhysics(bool interactive, double t)
 {
 	PX_UNUSED(interactive);
 
-	part->integrate(t);
+	for(Particle* part : parts)
+		part->integrate(t);
 
 	gScene->simulate(t);
 	gScene->fetchResults(true);
@@ -122,6 +123,10 @@ void cleanupPhysics(bool interactive)
 	DeregisterRenderItem(esferaX);
 	DeregisterRenderItem(esferaY);
 	DeregisterRenderItem(esferaZ);
+
+	// Delete de las parts
+	for (Particle* part : parts)
+		delete part;
 
 	gScene->release();
 	gDispatcher->release();
@@ -145,6 +150,7 @@ void keyPress(unsigned char key, const PxTransform& camera)
 	//case ' ':	break;
 	case ' ':
 	{
+		GeneratePart();
 		break;
 	}
 	default:

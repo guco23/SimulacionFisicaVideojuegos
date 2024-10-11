@@ -9,7 +9,6 @@ Particle::Particle(Vector3D pos, Vector3D vel, float damping) :  vel(vel), pose(
 Particle::~Particle()
 {
 	DeregisterRenderItem(renderItem);
-	delete renderItem;
 }
 
 void Particle::integrate(double t)

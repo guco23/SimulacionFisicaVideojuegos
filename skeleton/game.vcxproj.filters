@@ -29,6 +29,7 @@
     <ClInclude Include="Particle.h" />
     <ClInclude Include="ParticleAcc.h" />
     <ClInclude Include="Proyectil.h" />
+    <ClInclude Include="const.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Render">
