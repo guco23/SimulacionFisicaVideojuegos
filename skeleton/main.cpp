@@ -42,11 +42,6 @@ RenderItem* esferaC;
 
 std::vector<Particle*> parts;
 
-
-void GeneratePart() {
-	parts.push_back(new Proyectil(Vector3D(-90, 0, 0), Vector3D(80, 60, 0), Vector3D(0, 0, 0), 0.1, 0.999));
-}
-
 // Initialize physics engine
 void initPhysics(bool interactive)
 {
@@ -139,6 +134,13 @@ void cleanupPhysics(bool interactive)
 	gFoundation->release();
 	}
 
+
+void GeneratePartFromCam() {
+	parts.push_back(new Proyectil(Vector3D(GetCamera()->getEye().x, GetCamera()->getEye().y, GetCamera()->getEye().z),
+		Vector3D(- GetCamera()->getDir().x, - GetCamera()->getDir().y, - GetCamera()->getDir().z),
+		Vector3D(0, 0, 0), 10, 0.999));
+}
+
 // Function called when a key is pressed
 void keyPress(unsigned char key, const PxTransform& camera)
 {
@@ -150,7 +152,7 @@ void keyPress(unsigned char key, const PxTransform& camera)
 	//case ' ':	break;
 	case ' ':
 	{
-		GeneratePart();
+		GeneratePartFromCam();
 		break;
 	}
 	default:

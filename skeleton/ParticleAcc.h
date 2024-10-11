@@ -6,6 +6,6 @@ class ParticleAcc : public Particle
 public:
 	ParticleAcc(Vector3D pos, Vector3D vel, Vector3D acc, float damp);
 	virtual void integrate(double t) override;
-private:
+protected:
 	Vector3D acc;
 };
