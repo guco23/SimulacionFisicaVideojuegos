@@ -11,7 +11,7 @@ Particle::~Particle()
 	DeregisterRenderItem(renderItem);
 }
 
-void Particle::integrate(double t)
+void Particle::integrate(double t, Vector3D accel)
 {
 	vel = vel * pow(damp, t);
 	pose.p = pose.p + physx::PxVec3(t * vel.getX(), t * vel.getY(), t * vel.getZ());

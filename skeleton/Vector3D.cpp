@@ -21,17 +21,17 @@ void Vector3D::Normalize()
 	z = z / mod;
 }
 
-float Vector3D::Module()
+float Vector3D::Module() const
 {
 	return sqrt(x*x + y*y + z*z);
 }
 
-float Vector3D::DotProduct(const Vector3D& other)
+float Vector3D::DotProduct(const Vector3D& other) const
 {
 	return x * other.x + y * other.y + z*other.z;
 }
 
-Vector3D Vector3D::CrossProduct(const Vector3D& other) {
+Vector3D Vector3D::CrossProduct(const Vector3D& other) const {
 	//Cálculo del producto vectorial
 	float resx = y * other.z - z * other.y;
 	float resy = x * other.z - z * other.x;
@@ -39,7 +39,7 @@ Vector3D Vector3D::CrossProduct(const Vector3D& other) {
 	return Vector3D(resx, resy, resz);
 }
 
-Vector3D Vector3D::GetNormalized()
+Vector3D Vector3D::GetNormalized() const
 {
 	Vector3D v = *this;
 	v.Normalize();
@@ -53,12 +53,12 @@ void Vector3D::Scale(float n)
 	z = z * n;
 }
 
-Vector3D& Vector3D::operator+(const Vector3D& other)
+Vector3D& Vector3D::operator+(const Vector3D& other) const
 {
 	return Vector3D(x + other.x, y + other.y, z + other.z);
 }
 
-Vector3D& Vector3D::operator-(const Vector3D& other)
+Vector3D& Vector3D::operator-(const Vector3D& other) const
 {
 	return Vector3D(x - other.x, y - other.y, z - other.z);
 }
@@ -71,13 +71,13 @@ Vector3D& Vector3D::operator=(const Vector3D& other)
 	return *this;
 }
 
-Vector3D& Vector3D::operator*(const Vector3D& other)
+Vector3D& Vector3D::operator*(const Vector3D& other) const
 {
 	//Cálculo del producto vectorial
 	return CrossProduct(other);
 }
 
-Vector3D& Vector3D::operator*(const float& n)
+Vector3D& Vector3D::operator*(const float& n) const
 {
 	//Cálculo del producto vectoria
 	Vector3D v = *this;

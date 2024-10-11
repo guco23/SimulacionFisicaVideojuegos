@@ -14,7 +14,7 @@
 #include "Particle.h"
 #include "ParticleAcc.h"
 #include "Proyectil.h"
-
+#include "const.h"
 std::string display_text = "This is a test";
 
 
@@ -101,7 +101,7 @@ void stepPhysics(bool interactive, double t)
 	PX_UNUSED(interactive);
 
 	for(Particle* part : parts)
-		part->integrate(t);
+		part->integrate(t, Vector3D(0, 0, 0));
 
 	gScene->simulate(t);
 	gScene->fetchResults(true);
@@ -138,9 +138,13 @@ void cleanupPhysics(bool interactive)
 void GeneratePartFromCam() {
 	parts.push_back(new Proyectil(Vector3D(GetCamera()->getEye().x, GetCamera()->getEye().y, GetCamera()->getEye().z),
 		Vector3D(- GetCamera()->getDir().x, - GetCamera()->getDir().y, - GetCamera()->getDir().z),
-		Vector3D(0, 0, 0), 10, 0.999));
+		1, 0.999, 0.5));
 }
 
+void GenerateStatic() {
+	parts.push_back(new Proyectil(Vector3D(-50,0,0),Vector3D(30,0,0),
+		1, 0.999, 0.5));
+}
 // Function called when a key is pressed
 void keyPress(unsigned char key, const PxTransform& camera)
 {
@@ -152,7 +156,7 @@ void keyPress(unsigned char key, const PxTransform& camera)
 	//case ' ':	break;
 	case ' ':
 	{
-		GeneratePartFromCam();
+		GenerateStatic();
 		break;
 	}
 	default:

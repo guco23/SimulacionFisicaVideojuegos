@@ -8,7 +8,7 @@ public:
 	Particle(Vector3D pos, Vector3D vel, float damping);
 	~Particle();
 
-	virtual void integrate(double t);
+	virtual void integrate(double t, Vector3D accel);
 protected:
 	Vector3D vel; //La velocidad actual de la partícula
 	float damp; //El factor de damping de la partícula

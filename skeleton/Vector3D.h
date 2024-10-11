@@ -9,18 +9,18 @@ public:
 	Vector3D(float x, float y, float z);
 	Vector3D();
 	void Normalize();
-	float Module();
-	float DotProduct(const Vector3D& other);
+	float Module() const;
+	float DotProduct(const Vector3D& other) const;
 	void Scale(float n);
 
-	Vector3D CrossProduct(const Vector3D& other);
-	Vector3D GetNormalized();
+	Vector3D CrossProduct(const Vector3D& other) const;
+	Vector3D GetNormalized() const;
 
-	Vector3D& operator+(const Vector3D& other);
-	Vector3D& operator-(const Vector3D& other);
+	Vector3D& operator+(const Vector3D& other) const;
+	Vector3D& operator-(const Vector3D& other) const;
 	Vector3D& operator=(const Vector3D& other);
-	Vector3D& operator*(const float& other);
-	Vector3D& operator*(const Vector3D& other);
+	Vector3D& operator*(const float& other) const;
+	Vector3D& operator*(const Vector3D& other) const;
 
 	float getX();
 	float getY();

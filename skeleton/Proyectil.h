@@ -5,10 +5,12 @@
 class Proyectil : public ParticleAcc
 {
 public:
-	Proyectil(Vector3D pos, Vector3D vel, Vector3D acc, float masa, float damping);
+	Proyectil(Vector3D pos, Vector3D vel, float masa, float damping, float factVel);
 	~Proyectil();
 
-	virtual void integrate(double t) override;
+	virtual void integrate(double t, Vector3D accel) override;
 private:
 	float masa;
+	float factVel; //factor a la velocidad
+	Vector3D grav;
 };
