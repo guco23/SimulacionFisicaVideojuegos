@@ -9,10 +9,10 @@ class ParticleSystem
 {
 public:
 	ParticleSystem();
-	void AddGenerator(ParticleGenerator);
+	void AddGenerator(ParticleGenerator&);
 	void UpdateSystem(double t, Vector3D acc);
+	void CallDelete();
 private:
 	std::vector<ParticleGenerator> generators;
-	std::vector<Particle*> particles;
 };
 

@@ -4,10 +4,10 @@
 
 ParticleSystem::ParticleSystem()
 {
-
+	generators = std::vector<ParticleGenerator>();
 }
 
-void ParticleSystem::AddGenerator(ParticleGenerator generator)
+void ParticleSystem::AddGenerator(ParticleGenerator& generator)
 {
 	generators.push_back(generator);
 }
@@ -15,9 +15,13 @@ void ParticleSystem::AddGenerator(ParticleGenerator generator)
 void ParticleSystem::UpdateSystem(double t, Vector3D acc)
 {
 	for (ParticleGenerator& generator : generators) {
-		generator.UpdateGenerator(t);
+		generator.UpdateGenerator(t, acc);
 	}
-	for (Particle* part : particles) {
-		part->integrate(t, acc);
+}
+
+void ParticleSystem::CallDelete()
+{
+	for (ParticleGenerator& generator : generators) {
+		generator.CallDelete();
 	}
 }

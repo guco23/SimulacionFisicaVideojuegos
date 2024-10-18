@@ -15,6 +15,9 @@
 #include "ParticleAcc.h"
 #include "Proyectil.h"
 #include "const.h"
+#include "ParticleSystem.h"
+#include "ParticleGenerator.h"
+
 std::string display_text = "This is a test";
 
 
@@ -40,7 +43,8 @@ RenderItem* esferaY;
 RenderItem* esferaZ;
 RenderItem* esferaC;
 
-std::vector<Particle*> parts;
+ParticleSystem partSys;
+//std::vector<Particle*> parts;
 
 // Initialize physics engine
 void initPhysics(bool interactive)
@@ -89,7 +93,10 @@ void initPhysics(bool interactive)
 	esferaY = new RenderItem(sphere, transformY, colorG);
 	esferaZ = new RenderItem(sphere, transformZ, colorB);
 
-	parts = std::vector<Particle*>();
+	partSys = ParticleSystem();
+	Particle* model = new Particle(Vector3D(0, 0, 0), Vector3D(0, 90, 10), 0.999);
+	ParticleGenerator partGen1 = ParticleGenerator(model, Vector3D(0,0,0), Vector3D(0,0,0), 2.0);
+	partSys.AddGenerator(partGen1);
 }
 
 
@@ -103,6 +110,7 @@ void stepPhysics(bool interactive, double t)
 	for(Particle* part : parts)
 		part->integrate(t, Vector3D(0, 0, 0));
 	*/
+	partSys.UpdateSystem(t, Vector3D(0,0,0));
 	gScene->simulate(t);
 	gScene->fetchResults(true);
 }
@@ -120,8 +128,11 @@ void cleanupPhysics(bool interactive)
 	DeregisterRenderItem(esferaZ);
 
 	// Delete de las parts
+	/*
 	for (Particle* part : parts)
 		delete part;
+	*/
+	partSys.CallDelete();
 
 	gScene->release();
 	gDispatcher->release();
@@ -134,17 +145,20 @@ void cleanupPhysics(bool interactive)
 	gFoundation->release();
 	}
 
-
+/*
 void GeneratePartFromCam() {
 	parts.push_back(new Proyectil(Vector3D(GetCamera()->getEye().x, GetCamera()->getEye().y, GetCamera()->getEye().z),
 		Vector3D(- GetCamera()->getDir().x, - GetCamera()->getDir().y, - GetCamera()->getDir().z),
 		1, 0.999, 0.5));
 }
 
+
 void GeneratePartFromStatic(Vector3D pos, Vector3D dir) {
 	parts.push_back(new Proyectil(pos, dir,
 		1, 0.999, 0.5));
 }
+*/
+
 // Function called when a key is pressed
 void keyPress(unsigned char key, const PxTransform& camera)
 {

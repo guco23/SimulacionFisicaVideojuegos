@@ -11,13 +11,15 @@ class ParticleGenerator
 		MAS ADELANTE: Un aleatorizador de las partículas
 	*/
 public:
-	ParticleGenerator(Particle model, Vector3D pos, Vector3D vel, float creationrate, std::vector<Particle>& particles);
-	void UpdateGenerator(double);
+	ParticleGenerator(Particle* model, Vector3D pos, Vector3D vel, float creationrate);
+	void UpdateGenerator(double, Vector3D acc);
+	void CallDelete();
 private:
-	Particle model;
+	Particle* model;
 	Vector3D pos;
 	Vector3D vel;
 	float creationTime;
-	std::vector<Particle> particles;
+	float elapsedTime;
+	std::vector<Particle*> particles;
 };
 
