@@ -11,9 +11,25 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="callbacks.cpp" />
     <ClCompile Include="Vector3D.cpp" />
-    <ClCompile Include="Particle.cpp" />
-    <ClCompile Include="ParticleAcc.cpp" />
-    <ClCompile Include="Proyectil.cpp" />
+    <ClCompile Include="Particle.cpp">
+      <Filter>Particle</Filter>
+    </ClCompile>
+    <ClCompile Include="ParticleAcc.cpp">
+      <Filter>Particle</Filter>
+    </ClCompile>
+    <ClCompile Include="Proyectil.cpp">
+      <Filter>Particle</Filter>
+    </ClCompile>
+    <ClCompile Include="UniformDistribution.cpp">
+      <Filter>Distribution</Filter>
+    </ClCompile>
+    <ClCompile Include="Distribution.cpp" />
+    <ClCompile Include="ParticleGenerator.cpp">
+      <Filter>ParticleSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="ParticleSystem.cpp">
+      <Filter>ParticleSystem</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="core.hpp" />
@@ -26,14 +42,41 @@
     <ClInclude Include="RenderUtils.hpp" />
     <ClInclude Include="callbacks.hpp" />
     <ClInclude Include="Vector3D.h" />
-    <ClInclude Include="Particle.h" />
-    <ClInclude Include="ParticleAcc.h" />
-    <ClInclude Include="Proyectil.h" />
     <ClInclude Include="const.h" />
+    <ClInclude Include="Distribution.h">
+      <Filter>Distribution</Filter>
+    </ClInclude>
+    <ClInclude Include="Particle.h">
+      <Filter>Particle</Filter>
+    </ClInclude>
+    <ClInclude Include="ParticleAcc.h">
+      <Filter>Particle</Filter>
+    </ClInclude>
+    <ClInclude Include="Proyectil.h">
+      <Filter>Particle</Filter>
+    </ClInclude>
+    <ClInclude Include="UniformDistribution.h">
+      <Filter>Distribution</Filter>
+    </ClInclude>
+    <ClInclude Include="ParticleGenerator.h">
+      <Filter>ParticleSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="ParticleSystem.h">
+      <Filter>ParticleSystem</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Render">
       <UniqueIdentifier>{d04b4f9f-5a69-465e-8070-25c6d0bcd3c2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Distribution">
+      <UniqueIdentifier>{b808a5e1-ceec-4532-9372-d2c82d492f0b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Particle">
+      <UniqueIdentifier>{cfe5c57c-095c-4783-be23-7b970eb0ed95}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ParticleSystem">
+      <UniqueIdentifier>{550d2865-f072-4c89-ac8f-f7d7e6946442}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

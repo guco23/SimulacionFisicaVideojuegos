@@ -99,10 +99,10 @@ void initPhysics(bool interactive)
 void stepPhysics(bool interactive, double t)
 {
 	PX_UNUSED(interactive);
-
+	/*
 	for(Particle* part : parts)
 		part->integrate(t, Vector3D(0, 0, 0));
-
+	*/
 	gScene->simulate(t);
 	gScene->fetchResults(true);
 }
@@ -141,8 +141,8 @@ void GeneratePartFromCam() {
 		1, 0.999, 0.5));
 }
 
-void GenerateStatic() {
-	parts.push_back(new Proyectil(Vector3D(-50,0,0),Vector3D(30,0,0),
+void GeneratePartFromStatic(Vector3D pos, Vector3D dir) {
+	parts.push_back(new Proyectil(pos, dir,
 		1, 0.999, 0.5));
 }
 // Function called when a key is pressed
@@ -156,7 +156,7 @@ void keyPress(unsigned char key, const PxTransform& camera)
 	//case ' ':	break;
 	case ' ':
 	{
-		GenerateStatic();
+		//GeneratePartFromCam();
 		break;
 	}
 	default:
