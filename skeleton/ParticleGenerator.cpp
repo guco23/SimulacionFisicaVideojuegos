@@ -19,6 +19,7 @@ void ParticleGenerator::UpdateGenerator(double t, Vector3D acc)
 	elapsedTime += t;
 	if (elapsedTime > creationTime) {
 		Particle* part = model->clone();
+		//Aleatorizar los atributos de la partícula.
 		particles.push_back(part);
 		elapsedTime = 0;
 	}

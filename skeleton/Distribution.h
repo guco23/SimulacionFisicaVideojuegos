@@ -9,4 +9,3 @@ public:
 protected:
 	std::mt19937 randgen;
 };
-
