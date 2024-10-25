@@ -7,6 +7,18 @@ Proyectil::Proyectil(Vector3D pos, Vector3D vel, float masa, float damping, floa
 	this->grav = GRAVITY * (this->vel.DotProduct(this->vel) / vel.DotProduct(vel));
 }
 
+Proyectil::Proyectil(const Proyectil& proy) : ParticleAcc(proy), masa(proy.masa), factVel(factVel)
+{
+	vel = proy.vel;
+	masa = proy.masa;
+	grav = proy.grav;
+}
+
+Particle* Proyectil::clone() const
+{
+	return new Proyectil(*this);
+}
+
 void Proyectil::integrate(double t, Vector3D accel) {
 	accel = accel + grav;
 	ParticleAcc::integrate(t, accel);

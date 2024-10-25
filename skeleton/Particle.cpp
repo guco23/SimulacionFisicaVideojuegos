@@ -1,6 +1,13 @@
 #include "Particle.h"
+#include "iostream"
 
 Particle::Particle(Vector3D pos, Vector3D vel, float damping) :  vel(vel), pose(physx::PxTransform(physx::PxVec3(pos.getX(), pos.getY(), pos.getZ()))), damp(damping)
+{
+	physx::PxShape* sphere = CreateShape(physx::PxSphereGeometry(1));
+	renderItem = new RenderItem(sphere, &pose, physx::PxVec4(0, 0, 0, 1));
+}
+
+Particle::Particle(const Particle& part) : vel(part.vel), pose(part.pose), damp(part.damp)
 {
 	physx::PxShape* sphere = CreateShape(physx::PxSphereGeometry(1));
 	renderItem = new RenderItem(sphere, &pose, physx::PxVec4(0, 0, 0, 1));
@@ -9,6 +16,11 @@ Particle::Particle(Vector3D pos, Vector3D vel, float damping) :  vel(vel), pose(
 Particle::~Particle()
 {
 	DeregisterRenderItem(renderItem);
+}
+
+Particle* Particle::clone() const
+{
+	return new Particle(*this);
 }
 
 void Particle::integrate(double t, Vector3D accel)

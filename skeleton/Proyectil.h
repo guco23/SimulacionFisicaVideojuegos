@@ -6,7 +6,10 @@ class Proyectil : public ParticleAcc
 {
 public:
 	Proyectil(Vector3D pos, Vector3D vel, float masa, float damping, float factVel);
+	Proyectil(const Proyectil&);
 	~Proyectil();
+
+	Particle* clone() const override;
 
 	virtual void integrate(double t, Vector3D accel) override;
 private:

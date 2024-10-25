@@ -94,7 +94,7 @@ void initPhysics(bool interactive)
 	esferaZ = new RenderItem(sphere, transformZ, colorB);
 
 	partSys = ParticleSystem();
-	Particle* model = new Particle(Vector3D(0, 0, 0), Vector3D(0, 90, 10), 0.999);
+	Particle* model = new Proyectil(Vector3D(10, 0, 0), Vector3D(0, 90, 10), 3, 0.999, 0.5);
 	ParticleGenerator partGen1 = ParticleGenerator(model, Vector3D(0,0,0), Vector3D(0,0,0), 2.0);
 	partSys.AddGenerator(partGen1);
 }
@@ -106,11 +106,8 @@ void initPhysics(bool interactive)
 void stepPhysics(bool interactive, double t)
 {
 	PX_UNUSED(interactive);
-	/*
-	for(Particle* part : parts)
-		part->integrate(t, Vector3D(0, 0, 0));
-	*/
-	partSys.UpdateSystem(t, Vector3D(0,0,0));
+
+	partSys.UpdateSystem(t, Vector3D(0, -20, 0));
 	gScene->simulate(t);
 	gScene->fetchResults(true);
 }

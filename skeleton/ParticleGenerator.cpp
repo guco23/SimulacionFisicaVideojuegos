@@ -18,7 +18,7 @@ void ParticleGenerator::UpdateGenerator(double t, Vector3D acc)
 	*/
 	elapsedTime += t;
 	if (elapsedTime > creationTime) {
-		Particle* part = new Particle(*model);
+		Particle* part = model->clone();
 		particles.push_back(part);
 		elapsedTime = 0;
 	}
