@@ -17,6 +17,8 @@
 #include "const.h"
 #include "ParticleSystem.h"
 #include "ParticleGenerator.h"
+#include "Distribution.h"
+#include "UniformDistribution.h"
 
 std::string display_text = "This is a test";
 
@@ -95,7 +97,9 @@ void initPhysics(bool interactive)
 
 	partSys = ParticleSystem();
 	Particle* model = new Proyectil(Vector3D(10, 0, 0), Vector3D(0, 90, 10), 3, 0.999, 0.5);
-	ParticleGenerator partGen1 = ParticleGenerator(model, Vector3D(0,0,0), Vector3D(0,0,0), 2.0);
+
+	UniformDistribution dist = UniformDistribution(1,1);
+	ParticleGenerator partGen1 = ParticleGenerator(model, Vector3D(0,0,0), Vector3D(0,0,0), 2.0, ParticleGenerator::Particularizador(&dist));
 	partSys.AddGenerator(partGen1);
 }
 

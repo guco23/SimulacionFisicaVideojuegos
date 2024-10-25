@@ -1,7 +1,7 @@
 #include "ParticleGenerator.h"
 #include "Particle.h"
 
-ParticleGenerator::ParticleGenerator(Particle* model, Vector3D pos, Vector3D vel, float creationrate) : model(model), pos(pos), vel(vel), creationTime(1 / creationrate), elapsedTime(0) {
+ParticleGenerator::ParticleGenerator(Particle* model, Vector3D pos, Vector3D vel, float creationrate, Particularizador particularizador) : model(model), pos(pos), vel(vel), creationTime(1 / creationrate), elapsedTime(0), particularizador(particularizador) {
 	particles = std::vector<Particle*>();
 }
 
