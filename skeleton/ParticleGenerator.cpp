@@ -14,7 +14,7 @@ void ParticleGenerator::CallDelete()
 
 void ParticleGenerator::GenerateParticle()
 {
-	Particle* part = model->clone();
+	Particle* part = new Particle(*model);
 	//Aleatorizar los atributos de la partícula.
 	particularizador.Particularizar(part, pos, vel);
 	particles.push_back(part);

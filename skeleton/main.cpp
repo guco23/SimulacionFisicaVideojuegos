@@ -12,8 +12,6 @@
 
 #include "Vector3D.h"
 #include "Particle.h"
-#include "ParticleAcc.h"
-#include "Proyectil.h"
 #include "const.h"
 #include "ParticleSystem.h"
 #include "ParticleGenerator.h"
@@ -96,7 +94,7 @@ void initPhysics(bool interactive)
 	esferaZ = new RenderItem(sphere, transformZ, colorB);
 
 	partSys = ParticleSystem();
-	Particle* model = new Proyectil(Vector3D(10, 0, 0), Vector3D(0, 90, 10), 3, 0.999, 0.5);
+	Particle* model = new Particle(Vector3D(10, 0, 0), Vector3D(0, 90, 10), 3, 0.999, 0.5);
 	model->DeregisterRender(); //Para que la partícula modelo no se renderice.
 
 	UniformDistribution* dist = new UniformDistribution(1,20);
