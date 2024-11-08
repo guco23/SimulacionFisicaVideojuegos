@@ -2,6 +2,21 @@
 #include "Particle.h"
 
 class Distribution;
+
+struct Particularizador {
+public:
+	Particularizador(
+		Distribution* dist = nullptr, bool destOnPos = false, bool destOnTime = false, float destroyDistance = 0, float timeToDestroy = 0) :
+		dist(dist), destroyOnPos(destOnPos), destroyOnTime(destOnTime), destroyDistance(destroyDistance), timeToDestroy(timeToDestroy) {};
+	Distribution* dist;
+	bool destroyOnPos;
+	bool destroyOnTime;
+	float destroyDistance;
+	float timeToDestroy;
+
+	void Particularizar(Particle* part, Vector3D(pos), Vector3D(vel));
+};
+
 class ParticleGenerator
 {
 	/*
@@ -11,21 +26,10 @@ class ParticleGenerator
 		Un tiempo para crear partículas
 		MAS ADELANTE: Un aleatorizador de las partículas
 	*/
-	struct Particularizador {
-	public:
-		Particularizador(
-			Distribution* dist = nullptr, bool destOnPos = false, bool destOnTime = false, float destroyDistance = 0, float timeToDestroy = 0) :
-			dist(dist), destroyOnPos(destOnPos), destroyOnTime(destOnTime), destroyDistance(destroyDistance), timeToDestroy(timeToDestroy) {};
-		Distribution* dist;
-		bool destroyOnPos;
-		bool destroyOnTime;
-		float destroyDistance;
-		float timeToDestroy;
-	};
 
 public:
 	ParticleGenerator(Particle* model, Vector3D pos, Vector3D vel, float creationrate, Particularizador particularizador);
-	void UpdateGenerator(double, Vector3D acc);
+	void UpdateGenerator(double);
 	void CallDelete();
 private:
 	Particle* model;
@@ -34,6 +38,8 @@ private:
 	float creationTime;
 	float elapsedTime;
 	std::vector<Particle*> particles;
-	Particularizador particularizador
+	Particularizador particularizador;
+
+	void GenerateParticle();
 };
 

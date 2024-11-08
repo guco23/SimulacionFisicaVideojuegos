@@ -11,7 +11,7 @@ public:
 
 	Particle* clone() const override;
 
-	virtual void integrate(double t, Vector3D accel) override;
+	virtual void integrate(double t) override;
 private:
 	float masa;
 	float factVel; //factor a la velocidad

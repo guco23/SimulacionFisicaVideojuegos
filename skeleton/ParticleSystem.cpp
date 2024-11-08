@@ -12,10 +12,10 @@ void ParticleSystem::AddGenerator(ParticleGenerator& generator)
 	generators.push_back(generator);
 }
 
-void ParticleSystem::UpdateSystem(double t, Vector3D acc)
+void ParticleSystem::UpdateSystem(double t)
 {
 	for (ParticleGenerator& generator : generators) {
-		generator.UpdateGenerator(t, acc);
+		generator.UpdateGenerator(t);
 	}
 }
 

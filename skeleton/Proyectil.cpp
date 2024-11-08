@@ -19,9 +19,9 @@ Particle* Proyectil::clone() const
 	return new Proyectil(*this);
 }
 
-void Proyectil::integrate(double t, Vector3D accel) {
+void Proyectil::integrate(double t) {
 	accel = accel + grav;
-	ParticleAcc::integrate(t, accel);
+	ParticleAcc::integrate(t);
 }
 
 //gr simulada =  vsimulada^2 / vreal^2 * gr real

@@ -1,13 +1,12 @@
 #include "UniformDistribution.h"
 #include <random>
 
-float UniformDistribution::Generate() const
-{
-    //return dist(randgen);
-    return 1.0;
+float UniformDistribution::Generate() {
+    return dist(randgen);
 }
 
 UniformDistribution::UniformDistribution(float min, float max) : Distribution()
 {
-    dist = std::uniform_real_distribution<>(min, max);
+    randgen = std::default_random_engine();
+    dist = std::uniform_real_distribution<float>(min, max);
 }

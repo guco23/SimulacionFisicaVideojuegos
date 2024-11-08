@@ -4,8 +4,8 @@
 class Distribution
 {
 public:
-	virtual float Generate() const = 0;
+	virtual float Generate() = 0;
 	Distribution();
 protected:
-	std::mt19937 randgen;
+	std::default_random_engine randgen;
 };
