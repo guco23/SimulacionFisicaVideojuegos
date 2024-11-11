@@ -6,19 +6,13 @@ ParticleGenerator::ParticleGenerator(Particle* model, Vector3D pos, Vector3D vel
 	particles = std::vector<Particle*>();
 }
 
-void ParticleGenerator::CallDelete()
-{
-	for (Particle* part : particles)
-		delete part;
-}
-
 void ParticleGenerator::GenerateParticle()
 {
-	Particle* part = new Particle(*model);
+	std::unique_ptr<Particle> part = std::make_unique<Particle>(*model);
 	//Aleatorizar los atributos de la partícula.
-	particularizador.Particularizar(part, pos, vel);
-	particles.push_back(part);
-	elapsedTime = 0;
+	TimedParticle tpart = TimedParticle(part, particularizador.timeToDestroy);
+	particularizador.Particularizar(tpart, pos, vel);
+	particles.push_back(tpart);
 }
 
 void ParticleGenerator::UpdateGenerator(double t)
@@ -29,15 +23,16 @@ void ParticleGenerator::UpdateGenerator(double t)
 	elapsedTime += t;
 	if (elapsedTime > creationTime) {
 		GenerateParticle();
+		elapsedTime = 0;
 	}
-	for (Particle* part : particles) {
-		part->integrate(t);
+	for (TimedParticle& tpart : particles) {
+		tpart.part->integrate(t);
 	}
 }
 
-void Particularizador::Particularizar(Particle* part, Vector3D pos, Vector3D vel)
+void Particularizador::Particularizar(TimedParticle& tpart, Vector3D pos, Vector3D vel)
 {
 	//Este método habría que hacerlo mucho más sofisticado, incluyendo una "forma" sobre la que crea las partículas.
-	part->setPos(Vector3D(pos.getX() + dist->Generate(), pos.getY() + dist->Generate(), pos.getZ() + dist->Generate()));
-	part->setVel(Vector3D(vel.getX() + dist->Generate(), vel.getY() + dist->Generate(), vel.getZ() + dist->Generate()));
+	//part->setPos(Vector3D(pos.getX() + dist->Generate(), pos.getY() + dist->Generate(), pos.getZ() + dist->Generate()));
+	tpart.part->setVel(Vector3D(vel.getX() + dist->Generate(), vel.getY() + dist->Generate(), vel.getZ() + dist->Generate()));
 }

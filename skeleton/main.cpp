@@ -15,8 +15,8 @@
 #include "const.h"
 #include "ParticleSystem.h"
 #include "ParticleGenerator.h"
-#include "Distribution.h"
 #include "UniformDistribution.h"
+#include "NormalDistribution.h"
 
 std::string display_text = "This is a test";
 
@@ -97,7 +97,7 @@ void initPhysics(bool interactive)
 	Particle* model = new Particle(Vector3D(10, 0, 0), Vector3D(0, 90, 10), 3, 0.999, 0.5);
 	model->DeregisterRender(); //Para que la partícula modelo no se renderice.
 
-	UniformDistribution* dist = new UniformDistribution(1,20);
+	Distribution* dist = new NormalDistribution(5.0, 5.0);
 	ParticleGenerator partGen1 = ParticleGenerator(model, Vector3D(0,0,0), Vector3D(0,0,0), 2.0, Particularizador(dist));
 	partSys.AddGenerator(partGen1);
 }

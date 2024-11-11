@@ -24,6 +24,9 @@
     <ClCompile Include="ParticleSystem.cpp">
       <Filter>ParticleSystem</Filter>
     </ClCompile>
+    <ClCompile Include="NormalDistribution.cpp">
+      <Filter>Distribution</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="core.hpp" />
@@ -51,6 +54,9 @@
     </ClInclude>
     <ClInclude Include="ParticleSystem.h">
       <Filter>ParticleSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="NormalDistribution.h">
+      <Filter>Distribution</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
