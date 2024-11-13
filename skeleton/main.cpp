@@ -98,7 +98,7 @@ void initPhysics(bool interactive)
 	model->DeregisterRender(); //Para que la partícula modelo no se renderice.
 
 	Distribution* dist = new NormalDistribution(5.0, 5.0);
-	ParticleGenerator partGen1 = ParticleGenerator(model, Vector3D(0,0,0), Vector3D(0,0,0), 2.0, Particularizador(dist));
+	ParticleGenerator partGen1 = ParticleGenerator(model, Vector3D(0,0,0), Vector3D(0,0,0), 2.0);
 	partSys.AddGenerator(partGen1);
 }
 

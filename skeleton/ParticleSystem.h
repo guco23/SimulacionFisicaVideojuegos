@@ -11,7 +11,6 @@ public:
 	ParticleSystem();
 	void AddGenerator(ParticleGenerator&);
 	void UpdateSystem(double t);
-	void CallDelete();
 private:
 	std::vector<ParticleGenerator> generators;
 };

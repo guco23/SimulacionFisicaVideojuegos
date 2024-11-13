@@ -18,10 +18,3 @@ void ParticleSystem::UpdateSystem(double t)
 		generator.UpdateGenerator(t);
 	}
 }
-
-void ParticleSystem::CallDelete()
-{
-	for (ParticleGenerator& generator : generators) {
-		generator.CallDelete();
-	}
-}
