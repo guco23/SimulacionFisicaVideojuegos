@@ -21,6 +21,8 @@ public:
 
 	void setPos(Vector3D);
 	void setVel(Vector3D);
+	Vector3D getPos() const;
+	Vector3D getVel() const;
 protected:
 	Vector3D vel; //La velocidad actual de la partícula
 	float damp; //El factor de damping de la partícula
@@ -28,6 +30,7 @@ protected:
 	float masa;
 	float factVel; //factor a la velocidad
 	Vector3D grav;
+	double lifetime;
 
 	physx::PxTransform pose;
 
