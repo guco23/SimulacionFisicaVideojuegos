@@ -23,6 +23,7 @@ public:
 	void setVel(Vector3D);
 	Vector3D getPos() const;
 	Vector3D getVel() const;
+	double getLifetime() const;
 protected:
 	Vector3D vel; //La velocidad actual de la partícula
 	float damp; //El factor de damping de la partícula

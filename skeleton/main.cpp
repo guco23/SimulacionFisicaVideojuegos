@@ -94,16 +94,15 @@ void initPhysics(bool interactive)
 	esferaZ = new RenderItem(sphere, transformZ, colorB);
 
 	partSys = ParticleSystem();
-	Particle* model = new Particle(Vector3D(10, 0, 0), Vector3D(0, 90, 10), 3, 0.999, 0.5);
+	Particle* model = new Particle(Vector3D(10, 0, 0), Vector3D(0, 90, 1), 3, 0.999, 0.5);
 	model->DeregisterRender(); //Para que la partícula modelo no se renderice.
 
-	Distribution* dist = new NormalDistribution(5.0, 5.0);
+	Distribution* dist = new UniformDistribution(1.0, 5.0);
 	Particularizador particularizador = Particularizador();
-	particularizador.distPos = dist;
-	ParticleGenerator partGen1 = ParticleGenerator(model, Vector3D(0,0,0), Vector3D(0,0,0), 2.0, 4.0, 3.0, particularizador);
+	particularizador.distVel = dist;
+	ParticleGenerator partGen1 = ParticleGenerator(model, Vector3D(0,0,0), Vector3D(0,0,0), 2.0, 4.0, 50.0, particularizador);
 	partSys.AddGenerator(partGen1);
 }
-
 
 // Function to configure what happens in each step of physics
 // interactive: true if the game is rendering, false if it offline

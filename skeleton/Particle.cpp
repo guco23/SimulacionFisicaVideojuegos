@@ -69,6 +69,11 @@ Vector3D Particle::getVel() const
 	return vel;
 }
 
+double Particle::getLifetime() const
+{
+	return lifetime;
+}
+
 void Particle::DeregisterRender()
 {
 	DeregisterRenderItem(renderItem);

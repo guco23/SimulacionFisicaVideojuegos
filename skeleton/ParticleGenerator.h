@@ -3,6 +3,7 @@
 
 class Distribution;
 
+
 struct Particularizador {
 	Particularizador(Distribution* distVel, Distribution* distPos);
 	Particularizador() { distVel = nullptr; distPos = nullptr; };
@@ -25,7 +26,7 @@ private:
 	float elapsedTime;
 	float maxLifetime;
 	float maxDistance;
-	std::vector<Particle> particles;
+	std::vector<Particle*> particles;
 
 	Particularizador p;
 	void GenerateParticle();

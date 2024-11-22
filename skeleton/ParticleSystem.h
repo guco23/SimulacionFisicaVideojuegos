@@ -5,6 +5,9 @@
 class Particle;
 class ParticleGenerator;
 
+/*
+	Sería mejor que el sistema de particulas conteniense las particulas como tal y gestionase su destrucción
+*/
 class ParticleSystem
 {
 public:
