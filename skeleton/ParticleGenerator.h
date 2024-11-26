@@ -2,13 +2,22 @@
 #include "Particle.h"
 
 class Distribution;
+class ParticleSystem;
 
-
+/// <summary>
+/// Objeto que contiene las distribuciones para aleatorizar las partículas de un generador esepcífico.
+/// Debes asignar cada una de las distribuciones que quieres aplicar.
+/// El efecto aleatorizador se aplica sobre los valores que tenía la partícula en cuanto a velocidad y posición.
+/// </summary>
 struct Particularizador {
-	Particularizador(Distribution* distVel, Distribution* distPos);
-	Particularizador() { distVel = nullptr; distPos = nullptr; };
+	Particularizador() {
+		distVelX = nullptr; distPos = nullptr; distVelX = nullptr; distVelY = nullptr; distVelZ = nullptr;
+	};
 	//Las distribuciones a utilizar para aleatorizar la velocidad y la dirección
-	Distribution* distVel;
+	Distribution* distVelX;
+	Distribution* distVelY;
+	Distribution* distVelZ;
+
 	Distribution* distPos;
 };
 
@@ -16,19 +25,20 @@ class ParticleGenerator
 {
 
 public:
-	ParticleGenerator(Particle* model, Vector3D pos, Vector3D vel, float creationrate, float maxLifetime, float maxDistance, Particularizador particularizadors);
-	void UpdateGenerator(double);
+	ParticleGenerator(Particle* model, float creationrate, Particularizador particularizadors);
+	friend ParticleSystem;
 private:
 	Particle* model;
 	Vector3D pos;
 	Vector3D vel;
 	float creationTime;
 	float elapsedTime;
-	float maxLifetime;
-	float maxDistance;
-	std::vector<Particle*> particles;
 
+	ParticleSystem* mySystem = nullptr;
 	Particularizador p;
 	void GenerateParticle();
+
+	void UpdateGenerator(double);
+	void AssignSystem(ParticleSystem*);
 };
 

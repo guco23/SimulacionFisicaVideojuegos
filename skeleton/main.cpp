@@ -93,14 +93,17 @@ void initPhysics(bool interactive)
 	esferaY = new RenderItem(sphere, transformY, colorG);
 	esferaZ = new RenderItem(sphere, transformZ, colorB);
 
-	partSys = ParticleSystem();
-	Particle* model = new Particle(Vector3D(10, 0, 0), Vector3D(0, 90, 1), 3, 0.999, 0.5);
+	partSys = ParticleSystem(2.0, 40.0, Vector3D(0,0,0));
+	Particle* model = new Particle(Vector3D(0, 0, 0), Vector3D(1, 1, 1), 3, 0.999, 0.5);
 	model->DeregisterRender(); //Para que la partícula modelo no se renderice.
 
-	Distribution* dist = new UniformDistribution(1.0, 5.0);
+	Distribution* dist = new UniformDistribution(-50.0, 50.0);
 	Particularizador particularizador = Particularizador();
-	particularizador.distVel = dist;
-	ParticleGenerator partGen1 = ParticleGenerator(model, Vector3D(0,0,0), Vector3D(0,0,0), 2.0, 4.0, 50.0, particularizador);
+	particularizador.distVelY = dist;
+	particularizador.distVelX = dist;
+	particularizador.distVelZ = dist;
+
+	ParticleGenerator partGen1 = ParticleGenerator(model, 5.0, particularizador);
 	partSys.AddGenerator(partGen1);
 }
 
