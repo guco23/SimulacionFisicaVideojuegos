@@ -27,6 +27,9 @@
     <ClCompile Include="NormalDistribution.cpp">
       <Filter>Distribution</Filter>
     </ClCompile>
+    <ClCompile Include="Gravity.cpp">
+      <Filter>Force</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="core.hpp" />
@@ -58,6 +61,12 @@
     <ClInclude Include="NormalDistribution.h">
       <Filter>Distribution</Filter>
     </ClInclude>
+    <ClInclude Include="ForceGenerator.h">
+      <Filter>Force</Filter>
+    </ClInclude>
+    <ClInclude Include="Gravity.h">
+      <Filter>Force</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Render">
@@ -71,6 +80,9 @@
     </Filter>
     <Filter Include="ParticleSystem">
       <UniqueIdentifier>{550d2865-f072-4c89-ac8f-f7d7e6946442}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Force">
+      <UniqueIdentifier>{99d5d632-6842-450c-afc6-1b3d775c8259}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

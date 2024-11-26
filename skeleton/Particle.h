@@ -9,6 +9,8 @@
 class Particle
 {
 public:
+	friend class Gravity;
+
 	Particle(Vector3D pos, Vector3D vel, float masa, float damping, float factVel);
 	Particle(const Particle&);
 	~Particle();
@@ -30,8 +32,10 @@ protected:
 	Vector3D accel; //La aceleración siendo aplicada la partícula, después de aplicar fuerzas.
 	float masa;
 	float factVel; //factor a la velocidad
-	Vector3D grav;
+	Vector3D grav; //Esto se va a ir ya que la gravedad será una fuerza en el sistema
 	double lifetime;
+
+	float tFact; //El factor de la velocidad de la simulación
 
 	physx::PxTransform pose;
 

@@ -4,7 +4,7 @@
 
 class Particle;
 class ParticleGenerator;
-
+class ForceGenerator;
 /*
 	Sería mejor que el sistema de particulas conteniense las particulas como tal y gestionase su destrucción
 */
@@ -14,12 +14,14 @@ public:
 	ParticleSystem(float maxLifetime, float maxDistance, Vector3D systemPos);
 	ParticleSystem() {}; //cambiar esto
 	void AddGenerator(ParticleGenerator&);
+	void AddForce(ForceGenerator*);
 	void UpdateSystem(double t);
 
 	void AddParticle(Particle* part);
 	Vector3D GetPos();
 private:
 	std::vector<ParticleGenerator> generators;
+	std::vector<ForceGenerator*> forces;
 
 	float maxLifetime; //El tiempo de vida máximo posible para las partículas
 	float maxDistance; //La distancia máxima para eliminar las partículas

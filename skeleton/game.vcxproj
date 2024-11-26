@@ -255,6 +255,7 @@
   <ItemGroup>
     <ClCompile Include="callbacks.cpp" />
     <ClCompile Include="Distribution.cpp" />
+    <ClCompile Include="Gravity.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="NormalDistribution.cpp" />
     <ClCompile Include="ParticleGenerator.cpp" />
@@ -271,6 +272,8 @@
     <ClInclude Include="const.h" />
     <ClInclude Include="core.hpp" />
     <ClInclude Include="Distribution.h" />
+    <ClInclude Include="ForceGenerator.h" />
+    <ClInclude Include="Gravity.h" />
     <ClInclude Include="NormalDistribution.h" />
     <ClInclude Include="ParticleGenerator.h" />
     <ClInclude Include="Particle.h" />

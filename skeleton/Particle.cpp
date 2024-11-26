@@ -10,7 +10,8 @@ Particle::Particle(Vector3D pos, Vector3D vel, float masa, float damping, float 
 	accel = Vector3D(0, 0, 0);
 	this->vel = vel * factVel;
 	this->masa = masa / (factVel * factVel);
-	grav = GRAVITY * (this->vel.DotProduct(this->vel) / vel.DotProduct(vel));
+	 
+	tFact = (this->vel.DotProduct(this->vel) / vel.DotProduct(vel));
 
 	lifetime = 0;
 }
@@ -25,6 +26,7 @@ Particle::Particle(const Particle& part) : vel(part.vel), pose(part.pose), damp(
 	masa = part.masa;
 	grav = part.grav;
 	factVel = part.factVel;
+	tFact = part.tFact;
 
 	lifetime = 0;
 }
@@ -42,7 +44,6 @@ Particle* Particle::clone() const
 void Particle::integrate(double t)
 {
 	vel = vel + accel * t;
-	accel = accel + grav;
 	vel = vel * pow(damp, t);
 	pose.p = pose.p + physx::PxVec3(t * vel.getX(), t * vel.getY(), t * vel.getZ());
 

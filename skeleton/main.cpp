@@ -17,6 +17,8 @@
 #include "ParticleGenerator.h"
 #include "UniformDistribution.h"
 #include "NormalDistribution.h"
+#include "ForceGenerator.h"
+#include "Gravity.h"
 
 std::string display_text = "This is a test";
 
@@ -105,6 +107,9 @@ void initPhysics(bool interactive)
 
 	ParticleGenerator partGen1 = ParticleGenerator(model, 5.0, particularizador);
 	partSys.AddGenerator(partGen1);
+
+	ForceGenerator* gravity = new Gravity();
+	partSys.AddForce(gravity);
 }
 
 // Function to configure what happens in each step of physics
