@@ -34,6 +34,7 @@ Particle::Particle(const Particle& part) : vel(part.vel), pose(part.pose), damp(
 Particle::~Particle()
 {
 	DeregisterRenderItem(renderItem);
+	delete renderItem;
 }
 
 Particle* Particle::clone() const

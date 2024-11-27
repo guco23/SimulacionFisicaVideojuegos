@@ -19,6 +19,8 @@ public:
 
 	void AddParticle(Particle* part);
 	Vector3D GetPos();
+
+	~ParticleSystem();
 private:
 	std::vector<ParticleGenerator> generators;
 	std::vector<ForceGenerator*> forces;

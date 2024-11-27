@@ -56,3 +56,13 @@ Vector3D ParticleSystem::GetPos()
 {
 	return systemPos;
 }
+
+ParticleSystem::~ParticleSystem()
+{
+	for (auto i : forces) {
+		delete i;
+	}
+	//for (auto i : particles) {
+	//	delete i;
+	//}
+}
