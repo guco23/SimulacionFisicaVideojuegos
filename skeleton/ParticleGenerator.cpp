@@ -11,15 +11,15 @@ void ParticleGenerator::GenerateParticle()
 	Particle* part = new Particle(*model);
 
 	if(p.distPos)
-		part->setPos(part->getPos() + mySystem->GetPos() + Vector3D(p.distPos->Generate(), p.distPos->Generate(), p.distPos->Generate()));
+		part->pos = part->pos + mySystem->GetPos() + Vector3D(p.distPos->Generate(), p.distPos->Generate(), p.distPos->Generate());
 	if (p.distVelX) {
-		part->setVel(part->getVel() + Vector3D(p.distVelX->Generate(),0,0));
+		part->vel = part->vel + Vector3D(p.distVelX->Generate(),0,0);
 	}
 	if (p.distVelY) {
-		part->setVel(part->getVel() + Vector3D(0, p.distVelY->Generate(), 0));
+		part->vel = part->vel + Vector3D(0, p.distVelY->Generate(), 0);
 	}
 	if (p.distVelZ) {
-		part->setVel(part->getVel() + Vector3D(0, 0, p.distVelZ->Generate()));
+		part->vel = part->vel + Vector3D(0, 0, p.distVelZ->Generate());
 	}
 	mySystem->AddParticle(part);
 	

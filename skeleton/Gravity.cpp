@@ -4,5 +4,5 @@
 
 void Gravity::Apply(Particle* part)
 {
-	part->accel = part->accel + GRAVITY * part->tFact;
+	part->accel = part->accel + GRAVITY * part->masa;
 }

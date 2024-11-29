@@ -96,7 +96,7 @@ void initPhysics(bool interactive)
 	esferaZ = new RenderItem(sphere, transformZ, colorB);
 
 	partSys = ParticleSystem(2.0, 40.0, Vector3D(0,0,0));
-	Particle* model = new Particle(Vector3D(0, 0, 0), Vector3D(1, 1, 1), 3, 0.999, 0.5);
+	Particle* model = new Particle(Vector3D(0, 0, 0), Vector3D(1, 1, 1), 0.1, 0.999, 0.5);
 	model->DeregisterRender(); //Para que la partícula modelo no se renderice.
 
 	Distribution* dist = new UniformDistribution(-50.0, 50.0);
@@ -108,8 +108,8 @@ void initPhysics(bool interactive)
 	ParticleGenerator partGen1 = ParticleGenerator(model, 5.0, particularizador);
 	partSys.AddGenerator(partGen1);
 
-	ForceGenerator* gravity = new Gravity();
-	partSys.AddForce(gravity);
+	/*ForceGenerator* gravity = new Gravity();
+	partSys.AddForce(gravity);*/
 }
 
 // Function to configure what happens in each step of physics

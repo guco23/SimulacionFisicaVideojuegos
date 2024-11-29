@@ -1,11 +1,11 @@
 #include "Particle.h"
 #include "const.h"
 
-Particle::Particle(Vector3D pos, Vector3D vel, float masa, float damping, float factVel) :  vel(vel), damp(damping), factVel(factVel)
+Particle::Particle(Vector3D pos, Vector3D vel, float masa, float damping, float factVel) : pos(pos), vel(vel), damp(damping), factVel(factVel)
 {
 	physx::PxShape* sphere = CreateShape(physx::PxSphereGeometry(1));
 	renderItem = new RenderItem(sphere, &pose, physx::PxVec4(0, 0, 0, 1));
-	setPos(pos);
+	pose = physx::PxTransform(physx::PxVec3(pos.getX(), pos.getY(), pos.getZ()));
 
 	accel = Vector3D(0, 0, 0);
 	this->vel = vel * factVel;
@@ -16,15 +16,16 @@ Particle::Particle(Vector3D pos, Vector3D vel, float masa, float damping, float 
 	lifetime = 0;
 }
 
-Particle::Particle(const Particle& part) : vel(part.vel), pose(part.pose), damp(part.damp)
+Particle::Particle(const Particle& part) : vel(part.vel), pos(part.pos), damp(part.damp)
 {
 	physx::PxShape* sphere = CreateShape(physx::PxSphereGeometry(1));
+
 	renderItem = new RenderItem(sphere, &pose, physx::PxVec4(0, 0, 0, 1));
+	pose = physx::PxTransform(physx::PxVec3(pos.getX(), pos.getY(), pos.getZ()));
 
 	accel = part.accel;
 	vel = part.vel;
 	masa = part.masa;
-	grav = part.grav;
 	factVel = part.factVel;
 	tFact = part.tFact;
 
@@ -46,34 +47,10 @@ void Particle::integrate(double t)
 {
 	vel = vel + accel * t;
 	vel = vel * pow(damp, t);
-	pose.p = pose.p + physx::PxVec3(t * vel.getX(), t * vel.getY(), t * vel.getZ());
+	pos = pos + Vector3D( t * vel.getX(), t * vel.getY(), t * vel.getZ());
+	pose.p = physx::PxVec3(pos.getX(), pos.getY(), pos.getZ());
 
 	lifetime += t;
-}
-
-void Particle::setPos(Vector3D pos)
-{
-	pose = physx::PxTransform(physx::PxVec3(pos.getX(), pos.getY(), pos.getZ()));
-	
-}
-
-void Particle::setVel(Vector3D vel) {
-	this->vel = vel;
-}
-
-Vector3D Particle::getPos() const
-{
-	return Vector3D(pose.p.x, pose.p.y, pose.p.z);
-}
-
-Vector3D Particle::getVel() const
-{
-	return vel;
-}
-
-double Particle::getLifetime() const
-{
-	return lifetime;
 }
 
 void Particle::DeregisterRender()

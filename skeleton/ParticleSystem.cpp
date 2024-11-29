@@ -37,7 +37,7 @@ void ParticleSystem::UpdateSystem(double t)
 		part->integrate(t);
 
 		//Comprobar destrucciones
-		if (part->getLifetime() > maxLifetime || (part->getPos() - systemPos).Module() > maxDistance) {
+		if (part->lifetime > maxLifetime || (part->pos - systemPos).Module() > maxDistance) {
 			delete part;
 			iter = particles.erase(iter);
 		}
