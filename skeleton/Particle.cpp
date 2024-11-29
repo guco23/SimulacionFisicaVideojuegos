@@ -50,6 +50,7 @@ void Particle::integrate(double t)
 	pos = pos + Vector3D( t * vel.getX(), t * vel.getY(), t * vel.getZ());
 	pose.p = physx::PxVec3(pos.getX(), pos.getY(), pos.getZ());
 
+	accel = Vector3D(0,0,0);
 	lifetime += t;
 }
 

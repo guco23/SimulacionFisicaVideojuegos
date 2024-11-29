@@ -255,6 +255,7 @@
   <ItemGroup>
     <ClCompile Include="callbacks.cpp" />
     <ClCompile Include="Distribution.cpp" />
+    <ClCompile Include="ForceGenerator.cpp" />
     <ClCompile Include="Gravity.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="NormalDistribution.cpp" />
@@ -264,6 +265,7 @@
     <ClCompile Include="RenderUtils.cpp" />
     <ClCompile Include="Render\Camera.cpp" />
     <ClCompile Include="Render\Render.cpp" />
+    <ClCompile Include="Torbellin.cpp" />
     <ClCompile Include="UniformDistribution.cpp" />
     <ClCompile Include="Vector3D.cpp" />
     <ClCompile Include="Wind.cpp" />
@@ -282,6 +284,7 @@
     <ClInclude Include="RenderUtils.hpp" />
     <ClInclude Include="Render\Camera.h" />
     <ClInclude Include="Render\Render.h" />
+    <ClInclude Include="Torbellin.h" />
     <ClInclude Include="UniformDistribution.h" />
     <ClInclude Include="Vector3D.h" />
     <ClInclude Include="Wind.h" />

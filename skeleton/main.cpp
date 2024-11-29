@@ -19,6 +19,8 @@
 #include "NormalDistribution.h"
 #include "ForceGenerator.h"
 #include "Gravity.h"
+#include "Wind.h"
+#include "Torbellin.h"
 
 std::string display_text = "This is a test";
 
@@ -95,11 +97,11 @@ void initPhysics(bool interactive)
 	esferaY = new RenderItem(sphere, transformY, colorG);
 	esferaZ = new RenderItem(sphere, transformZ, colorB);
 
-	partSys = ParticleSystem(2.0, 40.0, Vector3D(0,0,0));
-	Particle* model = new Particle(Vector3D(0, 0, 0), Vector3D(1, 1, 1), 0.1, 0.999, 0.5);
+	partSys = ParticleSystem(20.0, 700.0, Vector3D(0,0,0));
+	Particle* model = new Particle(Vector3D(0, 0, 0), Vector3D(1, 1, 1), 1, 0.999, 0.5);
 	model->DeregisterRender(); //Para que la partícula modelo no se renderice.
 
-	Distribution* dist = new UniformDistribution(-50.0, 50.0);
+	Distribution* dist = new UniformDistribution(1.0, 1.0);
 	Particularizador particularizador = Particularizador();
 	particularizador.distVelY = dist;
 	particularizador.distVelX = dist;
@@ -108,8 +110,14 @@ void initPhysics(bool interactive)
 	ParticleGenerator partGen1 = ParticleGenerator(model, 5.0, particularizador);
 	partSys.AddGenerator(partGen1);
 
-	/*ForceGenerator* gravity = new Gravity();
-	partSys.AddForce(gravity);*/
+	ForceGenerator* gravity = new Gravity();
+	partSys.AddForce(gravity);
+
+	//ForceGenerator* torbellin = new Torbellin(0.5);
+	//partSys.AddForce(torbellin);
+
+	ForceGenerator* wind = new Wind(Vector3D(2,0,0));
+	partSys.AddForce(wind);
 }
 
 // Function to configure what happens in each step of physics

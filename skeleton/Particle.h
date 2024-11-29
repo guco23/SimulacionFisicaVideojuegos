@@ -23,6 +23,7 @@ public:
 	Vector3D vel; //La velocidad actual de la partícula
 	Vector3D accel; //La aceleración siendo aplicada la partícula, después de aplicar fuerzas.
 	float masa;
+	float coef;
 
 	float factVel; //factor a la velocidad
 	double lifetime;

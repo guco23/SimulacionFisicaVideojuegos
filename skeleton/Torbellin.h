@@ -1,12 +1,11 @@
 #pragma once
 #include "ForceGenerator.h"
-class Wind :
+class Torbellin :
     public ForceGenerator
 {
 public:
-    Wind(Vector3D);
+    Torbellin(float vel);
     virtual void Apply(Particle*) override;
 private:
-    Vector3D force; //La velocidad del viento
+    float vel;
 };
-

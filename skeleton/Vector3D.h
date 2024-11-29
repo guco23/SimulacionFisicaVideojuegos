@@ -12,7 +12,6 @@ public:
 	float Module() const;
 	float DotProduct(const Vector3D& other) const;
 	void Scale(float n);
-
 	Vector3D CrossProduct(const Vector3D& other) const;
 	Vector3D GetNormalized() const;
 
@@ -21,6 +20,7 @@ public:
 	Vector3D& operator=(const Vector3D& other);
 	Vector3D& operator*(const float& other) const;
 	Vector3D& operator*(const Vector3D& other) const;
+	Vector3D& operator/(const float& other) const;
 
 	float getX();
 	float getY();

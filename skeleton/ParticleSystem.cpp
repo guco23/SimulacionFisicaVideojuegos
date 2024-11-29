@@ -18,6 +18,7 @@ void ParticleSystem::AddGenerator(ParticleGenerator& generator)
 
 void ParticleSystem::AddForce(ForceGenerator* force)
 {
+	force->AssignSystem(this);
 	forces.push_back(force);
 }
 

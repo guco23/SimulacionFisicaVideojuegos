@@ -77,6 +77,13 @@ Vector3D& Vector3D::operator*(const Vector3D& other) const
 	return CrossProduct(other);
 }
 
+Vector3D& Vector3D::operator/(const float& other) const
+{
+	Vector3D v = *this;
+	v.Scale(1/other);
+	return v;
+}
+
 Vector3D& Vector3D::operator*(const float& n) const
 {
 	//Cálculo del producto vectoria
@@ -97,5 +104,5 @@ float Vector3D::getY()
 
 float Vector3D::getZ()
 {
-	return z;
+	return z;	
 }
