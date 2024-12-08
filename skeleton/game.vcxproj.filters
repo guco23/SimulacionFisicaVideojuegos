@@ -37,6 +37,9 @@
       <Filter>Particle</Filter>
     </ClCompile>
     <ClCompile Include="ForceGenerator.cpp" />
+    <ClCompile Include="RigidBody.cpp">
+      <Filter>RigidBody</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="core.hpp" />
@@ -80,6 +83,9 @@
     <ClInclude Include="Torbellin.h">
       <Filter>Particle</Filter>
     </ClInclude>
+    <ClInclude Include="RigidBody.h">
+      <Filter>RigidBody</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Render">
@@ -96,6 +102,9 @@
     </Filter>
     <Filter Include="Force">
       <UniqueIdentifier>{99d5d632-6842-450c-afc6-1b3d775c8259}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="RigidBody">
+      <UniqueIdentifier>{a1785063-6d0c-4bfe-baf8-945011e45ff0}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

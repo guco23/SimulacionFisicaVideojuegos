@@ -62,7 +62,7 @@ void initPhysics(bool interactive)
 	gPvd = PxCreatePvd(*gFoundation);
 	PxPvdTransport* transport = PxDefaultPvdSocketTransportCreate(PVD_HOST, 5425, 10);
 	gPvd->connect(*transport,PxPvdInstrumentationFlag::eALL);
-
+	
 	gPhysics = PxCreatePhysics(PX_PHYSICS_VERSION, *gFoundation, PxTolerancesScale(),true,gPvd);
 
 	gMaterial = gPhysics->createMaterial(0.5f, 0.5f, 0.6f);
@@ -76,6 +76,13 @@ void initPhysics(bool interactive)
 	sceneDesc.simulationEventCallback = &gContactReportCallback;
 	gScene = gPhysics->createScene(sceneDesc);
 	
+	PxRigidStatic* suelo = gPhysics->createRigidStatic(PxTransform(0, -10, 0));
+	PxShape* shape = CreateShape(PxBoxGeometry(100, 0.1, 100));
+	suelo->attachShape(*shape);
+	gScene->addActor(*suelo);
+
+	RenderItem* i = new RenderItem(shape, suelo, { 0.8, 0.8, 0.8, 1 });
+
 	//Instanciacion de las entidades en escena
 	PxShape* sphere = CreateShape(PxSphereGeometry(1));
 	Vector3D vectorX = Vector3D(5, 0, 0);
@@ -112,14 +119,14 @@ void initPhysics(bool interactive)
 	ParticleGenerator partGen1 = ParticleGenerator(model, 5.0, particularizador);
 	partSys.AddGenerator(partGen1);
 
-	//ForceGenerator* gravity = new Gravity();
-	//partSys.AddForce(gravity);
+	ForceGenerator* gravity = new Gravity();
+	partSys.AddForce(gravity);
 
 	ForceGenerator* torbellin = new Torbellin(3, 30);
 	partSys.AddForce(torbellin);
 
-	ForceGenerator* wind = new Wind(Vector3D(2,0,0));
-	partSys.AddForce(wind);
+	/*ForceGenerator* wind = new Wind(Vector3D(2,0,0));
+	partSys.AddForce(wind);*/
 }
 
 // Function to configure what happens in each step of physics

@@ -11,5 +11,5 @@ void Torbellin::Apply(Particle* part)
 	//fuerza = fuerza - centrVec * 1 / vel;
 
 	if (fuerza.Module() < distance)
-		part->fuerza = part->fuerza + fuerza * vel;
+		part->fuerza = part->fuerza + fuerza / part->masa * vel;
 }
