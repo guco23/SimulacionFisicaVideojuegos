@@ -115,7 +115,7 @@ void initPhysics(bool interactive)
 	//ForceGenerator* gravity = new Gravity();
 	//partSys.AddForce(gravity);
 
-	ForceGenerator* torbellin = new Torbellin(1);
+	ForceGenerator* torbellin = new Torbellin(3, 30);
 	partSys.AddForce(torbellin);
 
 	ForceGenerator* wind = new Wind(Vector3D(2,0,0));

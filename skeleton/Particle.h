@@ -21,7 +21,7 @@ public:
 
 	Vector3D pos;
 	Vector3D vel; //La velocidad actual de la partícula
-	Vector3D accel; //La aceleración siendo aplicada la partícula, después de aplicar fuerzas.
+	Vector3D fuerza; //La aceleración siendo aplicada la partícula, después de aplicar fuerzas.
 	float masa;
 	float coef;
 

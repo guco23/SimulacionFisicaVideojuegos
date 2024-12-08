@@ -7,7 +7,7 @@ Particle::Particle(Vector3D pos, Vector3D vel, float masa, float damping, float 
 	renderItem = new RenderItem(sphere, &pose, physx::PxVec4(0, 0, 0, 1));
 	pose = physx::PxTransform(physx::PxVec3(pos.getX(), pos.getY(), pos.getZ()));
 
-	accel = Vector3D(0, 0, 0);
+	fuerza = Vector3D(0, 0, 0);
 	this->vel = vel * factVel;
 	this->masa = masa / (factVel * factVel);
 	 
@@ -23,7 +23,7 @@ Particle::Particle(const Particle& part) : vel(part.vel), pos(part.pos), damp(pa
 	renderItem = new RenderItem(sphere, &pose, physx::PxVec4(0, 0, 0, 1));
 	pose = physx::PxTransform(physx::PxVec3(pos.getX(), pos.getY(), pos.getZ()));
 
-	accel = part.accel;
+	fuerza = part.fuerza;
 	vel = part.vel;
 	masa = part.masa;
 	factVel = part.factVel;
@@ -45,12 +45,12 @@ Particle* Particle::clone() const
 
 void Particle::integrate(double t)
 {
-	vel = vel + accel * t;
+	vel = vel + fuerza * t;
 	vel = vel * pow(damp, t);
 	pos = pos + Vector3D( t * vel.getX(), t * vel.getY(), t * vel.getZ());
 	pose.p = physx::PxVec3(pos.getX(), pos.getY(), pos.getZ());
 
-	accel = Vector3D(0,0,0);
+	fuerza = Vector3D(0,0,0);
 	lifetime += t;
 }
 
