@@ -23,6 +23,7 @@
 #include "Wind.h"
 #include "Torbellin.h"
 #include "ParticleGenerator.h"
+#include "RigidBody.h"
 
 std::string display_text = "This is a test";
 
@@ -127,6 +128,7 @@ void initPhysics(bool interactive)
 
 	/*ForceGenerator* wind = new Wind(Vector3D(2,0,0));
 	partSys.AddForce(wind);*/
+	RigidBody obj = RigidBody(Vector3D(0, 100, 0), CreateShape(PxBoxGeometry(10, 19, 10)), gScene, gPhysics, { 0,1,1,1 });
 }
 
 // Function to configure what happens in each step of physics
