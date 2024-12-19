@@ -110,26 +110,26 @@ void initPhysics(bool interactive)
 	esferaY = new RenderItem(sphere, transformY, colorG);
 	esferaZ = new RenderItem(sphere, transformZ, colorB);
 
-	partSys = ParticleSystem(20.0, 700.0, Vector3D(0,0,0));
-	Particle* model = new Particle(Vector3D(0, 0, 0), Vector3D(0.2, 0.2, 0.2), 1, 0.999, 0.5);
-	model->DeregisterRender(); //Para que la partícula modelo no se renderice.
+	//partSys = ParticleSystem(20.0, 700.0, Vector3D(0,0,0));
+	//Particle* model = new Particle(Vector3D(0, 0, 0), Vector3D(0.2, 0.2, 0.2), 1, 0.999, 0.5);
+	//model->DeregisterRender(); //Para que la partícula modelo no se renderice.
 
-	Distribution* dist = new UniformDistribution(-5, 10);
-	Particularizador particularizador = Particularizador();
-	particularizador.distVelY = dist;
-	particularizador.distVelX = dist;
-	particularizador.distVelZ = dist;
+	//Distribution* dist = new UniformDistribution(-5, 10);
+	//Particularizador particularizador = Particularizador();
+	//particularizador.distVelY = dist;
+	//particularizador.distVelX = dist;
+	//particularizador.distVelZ = dist;
 
-	ParticleGenerator partGen1 = ParticleGenerator(model, 5.0, particularizador);
-	partSys.AddGenerator(partGen1);
+	//ParticleGenerator partGen1 = ParticleGenerator(model, 5.0, particularizador);
+	//partSys.AddGenerator(partGen1);
 
-	ForceGenerator* gravity = new Gravity();
-	partSys.AddForce(gravity);
+	//ForceGenerator* gravity = new Gravity();
+	//partSys.AddForce(gravity);
 
-	ForceGenerator* torbellin = new Torbellin(3, 30);
-	partSys.AddForce(torbellin);
+	//ForceGenerator* torbellin = new Torbellin(3, 30);
+	//partSys.AddForce(torbellin);
 
-	man = GameManager(&partSys, &rigids, gScene, gPhysics);
+	man = GameManager(&rigids, gScene, gPhysics);
 	man.init();
 }
 
@@ -140,7 +140,7 @@ void stepPhysics(bool interactive, double t)
 {
 	PX_UNUSED(interactive);
 
-	partSys.UpdateSystem(t);
+	man.update(t);
 	gScene->simulate(t);
 	gScene->fetchResults(true);
 }
@@ -175,11 +175,11 @@ void cleanupPhysics(bool interactive)
 	}
 
 
-void GeneratePartFromCam() {
-	partSys.AddParticle(new Particle(Vector3D(GetCamera()->getEye().x, GetCamera()->getEye().y, GetCamera()->getEye().z),
-		Vector3D(- GetCamera()->getDir().x, - GetCamera()->getDir().y, - GetCamera()->getDir().z),
-		1, 0.999, 0.5));
-}
+//void GeneratePartFromCam() {
+//	partSys.AddParticle(new Particle(Vector3D(GetCamera()->getEye().x, GetCamera()->getEye().y, GetCamera()->getEye().z),
+//		Vector3D(- GetCamera()->getDir().x, - GetCamera()->getDir().y, - GetCamera()->getDir().z),
+//		1, 0.999, 0.5));
+//}
 
 
 //void GeneratePartFromStatic(Vector3D pos, Vector3D dir) {

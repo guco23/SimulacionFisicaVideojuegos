@@ -22,6 +22,7 @@ RigidBody::RigidBody(Vector3D transform, PxShape* shape, PxScene* scene, PxPhysi
 
 RigidBody::~RigidBody()
 {
+	DeregisterRenderItem(render);
 }
 
 bool RigidBody::CheckActor(PxActor* actor)
@@ -42,4 +43,11 @@ void RigidBody::SetMass(float mass)
 		PxRigidDynamic* dyn = static_cast<PxRigidDynamic*>(solid);
 		dyn->setMass(mass);
 	}
+}
+
+Vector3D RigidBody::GetPosition()
+{
+	PxRigidActor* act = static_cast<PxRigidActor*>(solid);
+	PxTransform t = act->getGlobalPose();
+	return Vector3D(t.p.x, t.p.y, t.p.z);
 }

@@ -16,7 +16,6 @@ public:
 	void AddGenerator(ParticleGenerator&);
 	void AddForce(ForceGenerator*);
 	void UpdateSystem(double t);
-
 	void AddParticle(Particle* part);
 	Vector3D GetPos();
 

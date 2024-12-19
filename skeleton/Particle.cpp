@@ -1,10 +1,10 @@
 #include "Particle.h"
 #include "const.h"
 
-Particle::Particle(Vector3D pos, Vector3D vel, float masa, float damping, float factVel) : pos(pos), vel(vel), damp(damping), factVel(factVel)
+Particle::Particle(Vector3D pos, Vector3D vel, float masa, float damping, float factVel, physx::PxVec4 color) : pos(pos), vel(vel), damp(damping), factVel(factVel), color(color)
 {
 	physx::PxShape* sphere = CreateShape(physx::PxSphereGeometry(1));
-	renderItem = new RenderItem(sphere, &pose, physx::PxVec4(0, 0, 0, 1));
+	renderItem = new RenderItem(sphere, &pose, color);
 	pose = physx::PxTransform(physx::PxVec3(pos.getX(), pos.getY(), pos.getZ()));
 
 	fuerza = Vector3D(0, 0, 0);
@@ -16,11 +16,11 @@ Particle::Particle(Vector3D pos, Vector3D vel, float masa, float damping, float 
 	lifetime = 0;
 }
 
-Particle::Particle(const Particle& part) : vel(part.vel), pos(part.pos), damp(part.damp)
+Particle::Particle(const Particle& part) : vel(part.vel), pos(part.pos), damp(part.damp), color(part.color)
 {
 	physx::PxShape* sphere = CreateShape(physx::PxSphereGeometry(1));
 
-	renderItem = new RenderItem(sphere, &pose, physx::PxVec4(0, 0, 0, 1));
+	renderItem = new RenderItem(sphere, &pose, color);
 	pose = physx::PxTransform(physx::PxVec3(pos.getX(), pos.getY(), pos.getZ()));
 
 	fuerza = part.fuerza;
@@ -35,7 +35,6 @@ Particle::Particle(const Particle& part) : vel(part.vel), pos(part.pos), damp(pa
 Particle::~Particle()
 {
 	DeregisterRenderItem(renderItem);
-	delete renderItem;
 }
 
 Particle* Particle::clone() const

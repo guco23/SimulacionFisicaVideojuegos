@@ -10,8 +10,9 @@ void ParticleGenerator::GenerateParticle()
 	//Aleatorizar los atributos de la partícula.
 	Particle* part = new Particle(*model);
 
+	part->pos = mySystem->GetPos();
 	if(p.distPos)
-		part->pos = part->pos + mySystem->GetPos() + Vector3D(p.distPos->Generate(), p.distPos->Generate(), p.distPos->Generate());
+		part->pos = part->pos + Vector3D(p.distPos->Generate(), p.distPos->Generate(), p.distPos->Generate());
 	if (p.distVelX) {
 		part->vel = part->vel + Vector3D(p.distVelX->Generate(),0,0);
 	}

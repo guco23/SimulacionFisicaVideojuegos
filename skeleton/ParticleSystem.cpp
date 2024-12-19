@@ -63,7 +63,7 @@ ParticleSystem::~ParticleSystem()
 	for (auto i : forces) {
 		delete i;
 	}
-	//for (auto i : particles) {
-	//	delete i;
-	//}
+	for (auto i : particles) {
+		delete i;
+	}
 }

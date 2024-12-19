@@ -13,6 +13,7 @@ public:
 	bool CheckActor(PxActor* actor);
 	void AddForce(Vector3D);
 	void SetMass(float);
+	Vector3D GetPosition();
 private:
 	RenderItem* render;
 	PxActor* solid;

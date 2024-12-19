@@ -9,7 +9,7 @@
 class Particle
 {
 public:
-	Particle(Vector3D pos, Vector3D vel, float masa, float damping, float factVel);
+	Particle(Vector3D pos, Vector3D vel, float masa, float damping, float factVel, physx::PxVec4 color);
 	Particle(const Particle&);
 	~Particle();
 
@@ -32,4 +32,6 @@ public:
 private:
 	physx::PxTransform pose;
 	RenderItem* renderItem;
+
+	physx::PxVec4 color;
 };
