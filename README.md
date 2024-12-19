@@ -1,8 +1,5 @@
-# SimulacionFisicaVideojuegos
-Repositorio de las prácticas de la asignatura de Simulación Física de Videojuegos
+El juego consiste en disparar distintos bloques verdes que aparecerán alrededor.
+Al golpearlos se emiten partículas con diversos efectos, y al disparar todos los de una ronda comenzará otra, con nuevos bloques que disparar.
 
-En la carpeta skeleton estará vuestro código fuente
-
-Necesitaréis además descomprimir el archivo que se indica a continuación en la raíz del repositorio:
-
-Carpetas bin y common https://ucomplutense-my.sharepoint.com/:f:/g/personal/liagar05_ucm_es/ElNxHPmZVj9Ni9-8FKTKp7cBJHAarnL3vvEvG50z0QMrzg
+CONTROLES:
+Se mueve la cámara moviendo el ratón mientras mantienes clic izquierdo. Se dispara con la tecla ESPACIO.
