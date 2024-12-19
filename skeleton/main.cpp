@@ -24,6 +24,8 @@
 #include "Torbellin.h"
 #include "ParticleGenerator.h"
 #include "RigidBody.h"
+#include "GameManager.h"
+#include <list>
 
 std::string display_text = "This is a test";
 
@@ -51,7 +53,8 @@ RenderItem* esferaZ;
 RenderItem* esferaC;
 
 ParticleSystem partSys;
-//std::vector<Particle*> parts;
+GameManager man;
+std::list<RigidBody*> rigids;
 
 // Initialize physics engine
 void initPhysics(bool interactive)
@@ -126,9 +129,8 @@ void initPhysics(bool interactive)
 	ForceGenerator* torbellin = new Torbellin(3, 30);
 	partSys.AddForce(torbellin);
 
-	/*ForceGenerator* wind = new Wind(Vector3D(2,0,0));
-	partSys.AddForce(wind);*/
-	RigidBody obj = RigidBody(Vector3D(0, 100, 0), CreateShape(PxBoxGeometry(10, 19, 10)), gScene, gPhysics, { 0,1,1,1 });
+	man = GameManager(&partSys, &rigids, gScene, gPhysics);
+	man.init();
 }
 
 // Function to configure what happens in each step of physics
@@ -172,19 +174,19 @@ void cleanupPhysics(bool interactive)
 	gFoundation->release();
 	}
 
-/*
+
 void GeneratePartFromCam() {
-	parts.push_back(new Proyectil(Vector3D(GetCamera()->getEye().x, GetCamera()->getEye().y, GetCamera()->getEye().z),
+	partSys.AddParticle(new Particle(Vector3D(GetCamera()->getEye().x, GetCamera()->getEye().y, GetCamera()->getEye().z),
 		Vector3D(- GetCamera()->getDir().x, - GetCamera()->getDir().y, - GetCamera()->getDir().z),
 		1, 0.999, 0.5));
 }
 
 
-void GeneratePartFromStatic(Vector3D pos, Vector3D dir) {
-	parts.push_back(new Proyectil(pos, dir,
-		1, 0.999, 0.5));
-}
-*/
+//void GeneratePartFromStatic(Vector3D pos, Vector3D dir) {
+//	parts.push_back(new Proyectil(pos, dir,
+//		1, 0.999, 0.5));
+//}
+
 
 // Function called when a key is pressed
 void keyPress(unsigned char key, const PxTransform& camera)
@@ -197,7 +199,7 @@ void keyPress(unsigned char key, const PxTransform& camera)
 	//case ' ':	break;
 	case ' ':
 	{
-		//GeneratePartFromCam();
+		man.Shoot();
 		break;
 	}
 	default:
@@ -209,6 +211,7 @@ void onCollision(physx::PxActor* actor1, physx::PxActor* actor2)
 {
 	PX_UNUSED(actor1);
 	PX_UNUSED(actor2);
+	man.CollisionDetected(actor1, actor2);
 }
 
 

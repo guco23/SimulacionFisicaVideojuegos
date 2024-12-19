@@ -40,6 +40,7 @@
     <ClCompile Include="RigidBody.cpp">
       <Filter>RigidBody</Filter>
     </ClCompile>
+    <ClCompile Include="GameManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="core.hpp" />
@@ -86,6 +87,7 @@
     <ClInclude Include="RigidBody.h">
       <Filter>RigidBody</Filter>
     </ClInclude>
+    <ClInclude Include="GameManager.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Render">
