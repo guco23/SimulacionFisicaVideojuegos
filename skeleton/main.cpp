@@ -22,6 +22,7 @@
 #include "Gravity.h"
 #include "Wind.h"
 #include "Torbellin.h"
+#include "Muelle.h"
 #include "ParticleGenerator.h"
 #include "RigidBody.h"
 #include "GameManager.h"
@@ -80,12 +81,12 @@ void initPhysics(bool interactive)
 	sceneDesc.simulationEventCallback = &gContactReportCallback;
 	gScene = gPhysics->createScene(sceneDesc);
 	
-	PxRigidStatic* suelo = gPhysics->createRigidStatic(PxTransform(0, -10, 0));
+	/*PxRigidStatic* suelo = gPhysics->createRigidStatic(PxTransform(0, -10, 0));
 	PxShape* shape = CreateShape(PxBoxGeometry(100, 0.1, 100));
 	suelo->attachShape(*shape);
-	gScene->addActor(*suelo);
+	gScene->addActor(*suelo);*/
 
-	RenderItem* i = new RenderItem(shape, suelo, { 0.8, 0.8, 0.8, 1 });
+	//RenderItem* i = new RenderItem(shape, suelo, { 0.8, 0.8, 0.8, 1 });
 
 	//Instanciacion de las entidades en escena
 	PxShape* sphere = CreateShape(PxSphereGeometry(1));
@@ -110,8 +111,8 @@ void initPhysics(bool interactive)
 	esferaY = new RenderItem(sphere, transformY, colorG);
 	esferaZ = new RenderItem(sphere, transformZ, colorB);
 
-	//partSys = ParticleSystem(20.0, 700.0, Vector3D(0,0,0));
-	//Particle* model = new Particle(Vector3D(0, 0, 0), Vector3D(0.2, 0.2, 0.2), 1, 0.999, 0.5);
+	partSys = ParticleSystem(-1, 700.0, Vector3D(0,0,0));
+	Particle* model = new Particle(Vector3D(1, 0, 0), Vector3D(0.2, 0.2, 0.2), 1, 0.999, 0.5, PxVec4(1,0,1,1));
 	//model->DeregisterRender(); //Para que la partícula modelo no se renderice.
 
 	//Distribution* dist = new UniformDistribution(-5, 10);
@@ -123,14 +124,21 @@ void initPhysics(bool interactive)
 	//ParticleGenerator partGen1 = ParticleGenerator(model, 5.0, particularizador);
 	//partSys.AddGenerator(partGen1);
 
-	//ForceGenerator* gravity = new Gravity();
-	//partSys.AddForce(gravity);
+	ForceGenerator* gravity = new Gravity();
+	partSys.AddForce(gravity);
 
 	//ForceGenerator* torbellin = new Torbellin(3, 30);
 	//partSys.AddForce(torbellin);
 
-	man = GameManager(&rigids, gScene, gPhysics);
-	man.init();
+	//man = GameManager(&rigids, gScene, gPhysics);
+	//man.init();
+
+	//Prueba muelles
+	Particle* part = new Particle(Vector3D(4, 1, 0), Vector3D(0.2, 0.2, 0.2), 1, 0.999, 0.5, PxVec4(0, 1, 1, 1));
+	ForceGenerator* muelle = new Muelle(10, model, 10);
+
+	partSys.AddParticle(part);
+	partSys.AddForce(muelle);
 }
 
 // Function to configure what happens in each step of physics
@@ -140,7 +148,8 @@ void stepPhysics(bool interactive, double t)
 {
 	PX_UNUSED(interactive);
 
-	man.update(t);
+	//man.update(t);
+	partSys.UpdateSystem(t);
 	gScene->simulate(t);
 	gScene->fetchResults(true);
 }
@@ -199,7 +208,7 @@ void keyPress(unsigned char key, const PxTransform& camera)
 	//case ' ':	break;
 	case ' ':
 	{
-		man.Shoot();
+		//man.Shoot();
 		break;
 	}
 	default:

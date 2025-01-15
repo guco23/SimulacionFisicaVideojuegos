@@ -41,6 +41,9 @@
       <Filter>RigidBody</Filter>
     </ClCompile>
     <ClCompile Include="GameManager.cpp" />
+    <ClCompile Include="Muelle.cpp">
+      <Filter>Force</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="core.hpp" />
@@ -88,6 +91,9 @@
       <Filter>RigidBody</Filter>
     </ClInclude>
     <ClInclude Include="GameManager.h" />
+    <ClInclude Include="Muelle.h">
+      <Filter>Force</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Render">

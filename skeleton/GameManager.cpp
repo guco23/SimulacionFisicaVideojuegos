@@ -58,15 +58,15 @@ void GameManager::CreateCelebrationParticles(Vector3D pos)
 	ParticleGenerator partGen1 = ParticleGenerator(model, 50.0, particularizador);
 	partSys->AddGenerator(partGen1);
 
-	if (points == 1) {
+	if (points == 0) {
 		ForceGenerator* gravity = new Gravity();
 		partSys->AddForce(gravity);
 	}
-	else if (points == 2) {
+	else if (points == 1) {
 		ForceGenerator* torbellin = new Torbellin(1.1, 30);
 		partSys->AddForce(torbellin);
 	}
-	else if (points == 3) {
+	else if (points == 2) {
 		ForceGenerator* wind = new Wind(Vector3D(0,2,1));
 		partSys->AddForce(wind);
 	}
@@ -95,10 +95,10 @@ GameManager::GameManager(std::list<RigidBody*>* rbs, PxScene* scene, PxPhysics* 
 
 void GameManager::Hit(RigidBody* goal)
 {
+	CreateCelebrationParticles(goal->GetPosition());
 	goals.remove(goal);
 	delete goal;
 	points++;
-	CreateCelebrationParticles(goal->GetPosition());
 	if (points >= numTargets) {
 		roundEnded = true;
 		points = 0;

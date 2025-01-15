@@ -259,6 +259,7 @@
     <ClCompile Include="GameManager.cpp" />
     <ClCompile Include="Gravity.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Muelle.cpp" />
     <ClCompile Include="NormalDistribution.cpp" />
     <ClCompile Include="ParticleGenerator.cpp" />
     <ClCompile Include="Particle.cpp" />
@@ -280,6 +281,7 @@
     <ClInclude Include="ForceGenerator.h" />
     <ClInclude Include="GameManager.h" />
     <ClInclude Include="Gravity.h" />
+    <ClInclude Include="Muelle.h" />
     <ClInclude Include="NormalDistribution.h" />
     <ClInclude Include="ParticleGenerator.h" />
     <ClInclude Include="Particle.h" />
