@@ -133,7 +133,7 @@ void initPhysics(bool interactive)
 	//ForceGenerator* torbellin2 = new Wind(Vector3D(-1, 0, 0));
 	//ForceGenerator* grav = new Gravity();
 
-	partSys1->AddForce(torbellin1);
+	//partSys1->AddForce(torbellin1);
 	//partSys2->AddForce(grav);
 
 	//man = GameManager(&rigids, gScene, gPhysics);
@@ -145,8 +145,7 @@ void initPhysics(bool interactive)
 
 	ForceGenerator* muelle1 = new Muelle(10, part2, 10);
 	ForceGenerator* muelle2 = new Muelle(10, part1, 10);
-
-
+	
 	partSys1->AddParticle(part1);
 	partSys1->AddForce(muelle1);
 
@@ -159,8 +158,23 @@ void initPhysics(bool interactive)
 	* nuevo por cada partícula en muelle con otra.
 	*/
 
-	sys.push_back(partSys1);
-	sys.push_back(partSys2);
+	//sys.push_back(partSys1);
+	//sys.push_back(partSys2);
+
+	//Para hacer el slinky
+	Particle* ant = nullptr;
+	for (int i = 0; i < 6; i++) {
+		ParticleSystem* pSys = new ParticleSystem(-1, 700.0, Vector3D(0, 0, 0));
+		Particle* part = new Particle(Vector3D(4, 1 + i * 5, 0), Vector3D(0.2, 0.2, 0.2), 1, 0.999, 0.5, PxVec4(0, 1, 1, 1));
+		if (ant != nullptr) {
+			ForceGenerator* muelle = new Muelle(10, ant, 1);
+			pSys->AddForce(muelle);
+		}
+		pSys->AddParticle(part);
+		sys.push_back(pSys);
+		ant = part;
+	}
+
 }
 
 // Function to configure what happens in each step of physics
