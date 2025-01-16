@@ -45,7 +45,7 @@ void GameManager::SetRound()
 
 void GameManager::CreateCelebrationParticles(Vector3D pos)
 {
-	ParticleSystem* partSys = new ParticleSystem(20.0, 30.0, pos);
+	ParticleSystem* partSys1 = new ParticleSystem(20.0, 30.0, pos);
 	Particle* model = new Particle(Vector3D(0, 0, 0), Vector3D(0.2, 0.2, 0.2), -0.1, 0.999, 0.5, physx::PxVec4(0,1,0,1));
 	model->DeregisterRender(); //Para que la partícula modelo no se renderice.
 
@@ -56,22 +56,22 @@ void GameManager::CreateCelebrationParticles(Vector3D pos)
 	particularizador.distVelZ = dist;
 
 	ParticleGenerator partGen1 = ParticleGenerator(model, 50.0, particularizador);
-	partSys->AddGenerator(partGen1);
+	partSys1->AddGenerator(partGen1);
 
 	if (points == 0) {
 		ForceGenerator* gravity = new Gravity();
-		partSys->AddForce(gravity);
+		partSys1->AddForce(gravity);
 	}
 	else if (points == 1) {
 		ForceGenerator* torbellin = new Torbellin(1.1, 30);
-		partSys->AddForce(torbellin);
+		partSys1->AddForce(torbellin);
 	}
 	else if (points == 2) {
 		ForceGenerator* wind = new Wind(Vector3D(0,2,1));
-		partSys->AddForce(wind);
+		partSys1->AddForce(wind);
 	}
 
-	partSysL.push_back(partSys);
+	partSysL.push_back(partSys1);
 }
 
 void GameManager::CollisionDetected(PxActor* actor1, PxActor* actor2)
@@ -133,7 +133,7 @@ void GameManager::update(double t)
 			overtimeTimer = 0;
 		}
 	}
-	for (ParticleSystem* partSys : partSysL) {
-		partSys->UpdateSystem(t);
+	for (ParticleSystem* partSys1 : partSysL) {
+		partSys1->UpdateSystem(t);
 	}
 }

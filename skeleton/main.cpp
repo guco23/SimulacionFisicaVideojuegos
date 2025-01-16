@@ -53,7 +53,8 @@ RenderItem* esferaY;
 RenderItem* esferaZ;
 RenderItem* esferaC;
 
-ParticleSystem partSys;
+std::vector<ParticleSystem*> sys;
+
 GameManager man;
 std::list<RigidBody*> rigids;
 
@@ -66,9 +67,9 @@ void initPhysics(bool interactive)
 
 	gPvd = PxCreatePvd(*gFoundation);
 	PxPvdTransport* transport = PxDefaultPvdSocketTransportCreate(PVD_HOST, 5425, 10);
-	gPvd->connect(*transport,PxPvdInstrumentationFlag::eALL);
-	
-	gPhysics = PxCreatePhysics(PX_PHYSICS_VERSION, *gFoundation, PxTolerancesScale(),true,gPvd);
+	gPvd->connect(*transport, PxPvdInstrumentationFlag::eALL);
+
+	gPhysics = PxCreatePhysics(PX_PHYSICS_VERSION, *gFoundation, PxTolerancesScale(), true, gPvd);
 
 	gMaterial = gPhysics->createMaterial(0.5f, 0.5f, 0.6f);
 
@@ -80,7 +81,7 @@ void initPhysics(bool interactive)
 	sceneDesc.filterShader = contactReportFilterShader;
 	sceneDesc.simulationEventCallback = &gContactReportCallback;
 	gScene = gPhysics->createScene(sceneDesc);
-	
+
 	/*PxRigidStatic* suelo = gPhysics->createRigidStatic(PxTransform(0, -10, 0));
 	PxShape* shape = CreateShape(PxBoxGeometry(100, 0.1, 100));
 	suelo->attachShape(*shape);
@@ -102,17 +103,18 @@ void initPhysics(bool interactive)
 	PxTransform* transformZ = new PxTransform(PxVec3(vectorZ.getX(), vectorZ.getY(), vectorZ.getZ()));
 
 	PxVec4 colorW(1, 1, 1, 1);
-	PxVec4 colorR = PxVec4(1, 0, 0,1);
+	PxVec4 colorR = PxVec4(1, 0, 0, 1);
 	PxVec4 colorG = PxVec4(0, 1, 0, 1);
 	PxVec4 colorB = PxVec4(0, 0, 1, 1);
 
-	esferaC = new RenderItem(sphere, transformC, colorW);
-	esferaX = new RenderItem(sphere, transformX, colorR);
-	esferaY = new RenderItem(sphere, transformY, colorG);
-	esferaZ = new RenderItem(sphere, transformZ, colorB);
+	//esferaC = new RenderItem(sphere, transformC, colorW);
+	//esferaX = new RenderItem(sphere, transformX, colorR);
+	//esferaY = new RenderItem(sphere, transformY, colorG);
+	//esferaZ = new RenderItem(sphere, transformZ, colorB);
 
-	partSys = ParticleSystem(-1, 700.0, Vector3D(0,0,0));
-	Particle* model = new Particle(Vector3D(1, 0, 0), Vector3D(0.2, 0.2, 0.2), 1, 0.999, 0.5, PxVec4(1,0,1,1));
+	ParticleSystem* partSys1 = new ParticleSystem(-1, 700.0, Vector3D(0, 0, 0));
+	ParticleSystem* partSys2 = new ParticleSystem(-1, 700.0, Vector3D(0, 0, 0));
+	//Particle* model = new Particle(Vector3D(1, 0, 0), Vector3D(0.2, 0.2, 0.2), 1, 0.999, 0.5, PxVec4(1,0,1,1));
 	//model->DeregisterRender(); //Para que la partícula modelo no se renderice.
 
 	//Distribution* dist = new UniformDistribution(-5, 10);
@@ -124,21 +126,41 @@ void initPhysics(bool interactive)
 	//ParticleGenerator partGen1 = ParticleGenerator(model, 5.0, particularizador);
 	//partSys.AddGenerator(partGen1);
 
-	ForceGenerator* gravity = new Gravity();
-	partSys.AddForce(gravity);
+	//ForceGenerator* gravity = new Gravity();
+	//partSys.AddForce(gravity);
 
-	//ForceGenerator* torbellin = new Torbellin(3, 30);
-	//partSys.AddForce(torbellin);
+	ForceGenerator* torbellin1 = new Wind(Vector3D(0, 10, 0));
+	//ForceGenerator* torbellin2 = new Wind(Vector3D(-1, 0, 0));
+	//ForceGenerator* grav = new Gravity();
+
+	partSys1->AddForce(torbellin1);
+	//partSys2->AddForce(grav);
 
 	//man = GameManager(&rigids, gScene, gPhysics);
 	//man.init();
 
 	//Prueba muelles
-	Particle* part = new Particle(Vector3D(4, 1, 0), Vector3D(0.2, 0.2, 0.2), 1, 0.999, 0.5, PxVec4(0, 1, 1, 1));
-	ForceGenerator* muelle = new Muelle(10, model, 10);
+	Particle* part1 = new Particle(Vector3D(4, 1, 0), Vector3D(0.2, 0.2, 0.2), 1, 0.999, 0.5, PxVec4(0, 1, 1, 1));
+	Particle* part2 = new Particle(Vector3D(1, 0, 0), Vector3D(0.2, 0.2, 0.2), 1, 0.999, 0.5, PxVec4(1, 0, 1, 1));
 
-	partSys.AddParticle(part);
-	partSys.AddForce(muelle);
+	ForceGenerator* muelle1 = new Muelle(10, part2, 10);
+	ForceGenerator* muelle2 = new Muelle(10, part1, 10);
+
+
+	partSys1->AddParticle(part1);
+	partSys1->AddForce(muelle1);
+
+	partSys2->AddParticle(part2);
+	partSys2->AddForce(muelle2);
+
+	/*NOTA:
+	* Por cómo funciona la arquitectura de mi programa, todas las partículas en un sistema quedan afectadas por todas las fuerzas
+	* en el mismo. Por eso la única forma que tengo de tener partículas afectadas por distintos muelles es crear un sistema
+	* nuevo por cada partícula en muelle con otra.
+	*/
+
+	sys.push_back(partSys1);
+	sys.push_back(partSys2);
 }
 
 // Function to configure what happens in each step of physics
@@ -149,7 +171,10 @@ void stepPhysics(bool interactive, double t)
 	PX_UNUSED(interactive);
 
 	//man.update(t);
-	partSys.UpdateSystem(t);
+	for (ParticleSystem* s : sys) {
+		s->UpdateSystem(t);
+	}
+
 	gScene->simulate(t);
 	gScene->fetchResults(true);
 }
