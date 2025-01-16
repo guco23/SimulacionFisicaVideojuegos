@@ -106,3 +106,18 @@ float Vector3D::getZ()
 {
 	return z;	
 }
+
+void Vector3D::setX(float x)
+{
+	this->x = x;
+}
+
+void Vector3D::setY(float y)
+{
+	this->y = y;
+}
+
+void Vector3D::setZ(float z)
+{
+	this->z = z;
+}

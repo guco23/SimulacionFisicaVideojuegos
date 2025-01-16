@@ -44,6 +44,9 @@
     <ClCompile Include="Muelle.cpp">
       <Filter>Force</Filter>
     </ClCompile>
+    <ClCompile Include="Flotacion.cpp">
+      <Filter>Force</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="core.hpp" />
@@ -92,6 +95,9 @@
     </ClInclude>
     <ClInclude Include="GameManager.h" />
     <ClInclude Include="Muelle.h">
+      <Filter>Force</Filter>
+    </ClInclude>
+    <ClInclude Include="Flotacion.h">
       <Filter>Force</Filter>
     </ClInclude>
   </ItemGroup>

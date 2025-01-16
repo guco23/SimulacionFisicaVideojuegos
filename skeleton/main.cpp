@@ -23,6 +23,7 @@
 #include "Wind.h"
 #include "Torbellin.h"
 #include "Muelle.h"
+#include "Flotacion.h"
 #include "ParticleGenerator.h"
 #include "RigidBody.h"
 #include "GameManager.h"
@@ -97,7 +98,6 @@ void initPhysics(bool interactive)
 	Vector3D vectorC = Vector3D(0, 0, 0);
 
 	PxTransform* transformC = new PxTransform(PxVec3(vectorC.getX(), vectorC.getY(), vectorC.getZ()));
-	//Valores del vector puestos directamente de forma provisional hasta que haga mi vector3
 	PxTransform* transformX = new PxTransform(PxVec3(vectorX.getX(), vectorX.getY(), vectorX.getZ()));
 	PxTransform* transformY = new PxTransform(PxVec3(vectorY.getX(), vectorY.getY(), vectorY.getZ()));
 	PxTransform* transformZ = new PxTransform(PxVec3(vectorZ.getX(), vectorZ.getY(), vectorZ.getZ()));
@@ -107,13 +107,11 @@ void initPhysics(bool interactive)
 	PxVec4 colorG = PxVec4(0, 1, 0, 1);
 	PxVec4 colorB = PxVec4(0, 0, 1, 1);
 
-	//esferaC = new RenderItem(sphere, transformC, colorW);
-	//esferaX = new RenderItem(sphere, transformX, colorR);
-	//esferaY = new RenderItem(sphere, transformY, colorG);
-	//esferaZ = new RenderItem(sphere, transformZ, colorB);
+	esferaC = new RenderItem(sphere, transformC, colorW);
+	esferaX = new RenderItem(sphere, transformX, colorR);
+	esferaY = new RenderItem(sphere, transformY, colorG);
+	esferaZ = new RenderItem(sphere, transformZ, colorB);
 
-	ParticleSystem* partSys1 = new ParticleSystem(-1, 700.0, Vector3D(0, 0, 0));
-	ParticleSystem* partSys2 = new ParticleSystem(-1, 700.0, Vector3D(0, 0, 0));
 	//Particle* model = new Particle(Vector3D(1, 0, 0), Vector3D(0.2, 0.2, 0.2), 1, 0.999, 0.5, PxVec4(1,0,1,1));
 	//model->DeregisterRender(); //Para que la partícula modelo no se renderice.
 
@@ -129,7 +127,6 @@ void initPhysics(bool interactive)
 	//ForceGenerator* gravity = new Gravity();
 	//partSys.AddForce(gravity);
 
-	ForceGenerator* torbellin1 = new Wind(Vector3D(0, 10, 0));
 	//ForceGenerator* torbellin2 = new Wind(Vector3D(-1, 0, 0));
 	//ForceGenerator* grav = new Gravity();
 
@@ -139,7 +136,12 @@ void initPhysics(bool interactive)
 	//man = GameManager(&rigids, gScene, gPhysics);
 	//man.init();
 
-	//Prueba muelles
+
+	//4.2 Prueba muelles
+	/*
+	ParticleSystem* partSys1 = new ParticleSystem(-1, 700.0, Vector3D(0, 0, 0));
+	ParticleSystem* partSys2 = new ParticleSystem(-1, 700.0, Vector3D(0, 0, 0));
+
 	Particle* part1 = new Particle(Vector3D(4, 1, 0), Vector3D(0.2, 0.2, 0.2), 1, 0.999, 0.5, PxVec4(0, 1, 1, 1));
 	Particle* part2 = new Particle(Vector3D(1, 0, 0), Vector3D(0.2, 0.2, 0.2), 1, 0.999, 0.5, PxVec4(1, 0, 1, 1));
 
@@ -152,29 +154,46 @@ void initPhysics(bool interactive)
 	partSys2->AddParticle(part2);
 	partSys2->AddForce(muelle2);
 
-	/*NOTA:
-	* Por cómo funciona la arquitectura de mi programa, todas las partículas en un sistema quedan afectadas por todas las fuerzas
-	* en el mismo. Por eso la única forma que tengo de tener partículas afectadas por distintos muelles es crear un sistema
-	* nuevo por cada partícula en muelle con otra.
+	sys.push_back(partSys1);
+	sys.push_back(partSys2);
 	*/
 
-	//sys.push_back(partSys1);
-	//sys.push_back(partSys2);
 
-	//Para hacer el slinky
+	//4.2 op Para hacer el slinky
+	/*
 	Particle* ant = nullptr;
 	for (int i = 0; i < 6; i++) {
 		ParticleSystem* pSys = new ParticleSystem(-1, 700.0, Vector3D(0, 0, 0));
 		Particle* part = new Particle(Vector3D(4, 1 + i * 5, 0), Vector3D(0.2, 0.2, 0.2), 1, 0.999, 0.5, PxVec4(0, 1, 1, 1));
 		if (ant != nullptr) {
-			ForceGenerator* muelle = new Muelle(10, ant, 1);
+			ForceGenerator* muelle = new Muelle(1, ant, 1);
 			pSys->AddForce(muelle);
 		}
 		pSys->AddParticle(part);
 		sys.push_back(pSys);
 		ant = part;
 	}
+	*/
 
+	//4.3 Flotación
+	//Cubo para ver la superficie del agua
+	PxRigidStatic* agua = gPhysics->createRigidStatic(PxTransform(0, 33, 0));
+	PxShape* shape = CreateShape(PxBoxGeometry(10, 0.1, 10));
+	agua->attachShape(*shape);
+	gScene->addActor(*agua);
+	RenderItem* i = new RenderItem(shape, agua, Vector4(0,0,1,1));
+
+	//Utilizo una partícula circular en vez de un volumen porque por la arquitectura de mi programa resulta complicado combiar eso
+	Particle* part = new Particle(Vector3D(0, 35, 0), Vector3D(0, 0, 0), 0.8, 0.999, 0.5, PxVec4(0, 1, 1, 1));
+	ForceGenerator* flotacion = new Flotacion(33, 20, 10);
+	ForceGenerator* gravity = new Gravity(); //Le metemos al sistema una fuerza de gravedad para que actúe de forma contraria a la flotación
+
+	ParticleSystem* partSys = new ParticleSystem(-1, 700.0, Vector3D(0, 0, 0));
+	partSys->AddForce(flotacion);
+	partSys->AddForce(gravity);
+	partSys->AddParticle(part);
+
+	sys.push_back(partSys);
 }
 
 // Function to configure what happens in each step of physics
